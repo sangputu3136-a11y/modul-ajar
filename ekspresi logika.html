@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ekspresi Logika &amp; Gerbang Logika — Informatika Kelas 9</title>
+<!--
+=====================================================================
+  MODUL PEMBELAJARAN INTERAKTIF
+  Mata Pelajaran : Informatika
+  Jenjang/Kelas  : SMP / IX  (Fase D - Kurikulum Merdeka)
+  Materi         : Berpikir Komputasional
+  Topik          : Ekspresi Logika dan Gerbang Logika (AND, OR, NOT)
+
+  >>> BAGIAN YANG MUDAH DIEDIT GURU ADA DI 3 TEMPAT:
+      [EDIT-1] Identitas sekolah & penyusun  -> cari tulisan [EDIT-1]
+      [EDIT-2] Warna tampilan                -> cari tulisan [EDIT-2]
+      [EDIT-3] Daftar soal kuis & tantangan  -> cari tulisan [EDIT-3]
+  Seluruh CSS dan JavaScript ada di dalam berkas ini. Tidak perlu
+  internet, tidak perlu server. Cukup klik dua kali index.html.
+=====================================================================
+-->
+<style>
+/* =================== [EDIT-2] WARNA TAMPILAN =======================
+   Ubah kode warna di bawah ini untuk mengganti seluruh tema aplikasi.
+   ================================================================== */
+:root{
+  --latar:        #0A1122;   /* latar belakang utama  */
+  --panel:        #141D36;   /* kartu / panel         */
+  --panel-2:      #1C2745;   /* panel lebih terang    */
+  --garis:        #2C3A5E;   /* garis pembatas        */
+  --teks:         #E8EEF9;   /* teks utama            */
+  --teks-redup:   #94A4C4;   /* teks keterangan       */
+  --nyala:        #34E27A;   /* warna ON / BENAR / 1  */
+  --mati:         #465579;   /* warna OFF / SALAH / 0 */
+  --sorot:        #38D9F0;   /* aksen biru sirkuit    */
+  --hangat:       #FFC043;   /* aksen kuning          */
+  --salah:        #FF6B81;   /* warna jawaban salah   */
+  --ungu:         #A78BFA;   /* aksen tambahan        */
+  --lengkung:     18px;      /* kebulatan sudut kartu */
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--latar);
+  background-image:
+    linear-gradient(rgba(56,217,240,.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56,217,240,.045) 1px, transparent 1px);
+  background-size:38px 38px;
+  color:var(--teks);
+  font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.65;
+  -webkit-text-size-adjust:100%;
+  padding-bottom:90px;
+}
+h1,h2,h3,h4{line-height:1.2;font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,4.5vw,2.3rem);margin-bottom:.3em}
+h3{font-size:1.25rem;margin:1.4rem 0 .5rem}
+h4{font-size:1.05rem;margin:1rem 0 .4rem}
+p{margin-bottom:.9em;max-width:70ch}
+ul,ol{margin:0 0 1em 1.2em}
+li{margin-bottom:.35em}
+b,strong{color:#fff}
+:focus-visible{outline:3px solid var(--hangat);outline-offset:3px;border-radius:6px}
+
+/* ---------------- BILAH ATAS + NAVIGASI ---------------- */
+header.bilah{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,17,34,.93);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--garis);
+}
+.bilah-atas{display:flex;align-items:center;gap:12px;padding:10px clamp(12px,3vw,26px);flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.98rem}
+.logo .ic{width:34px;height:34px;border-radius:10px;background:linear-gradient(140deg,var(--sorot),var(--ungu));display:grid;place-items:center;font-size:18px;flex:none}
+.logo small{display:block;font-weight:600;font-size:.72rem;color:var(--teks-redup);letter-spacing:.02em}
+.alat-kanan{margin-left:auto;display:flex;align-items:center;gap:10px}
+.kemajuan{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--teks-redup);font-weight:700}
+.kemajuan .rel{width:110px;height:9px;border-radius:99px;background:var(--panel-2);overflow:hidden;border:1px solid var(--garis)}
+.kemajuan .rel i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sorot),var(--nyala));transition:width .5s}
+.tbl-kecil{background:var(--panel-2);border:1px solid var(--garis);color:var(--teks);border-radius:99px;padding:7px 13px;font-size:.8rem;font-weight:700;cursor:pointer}
+.tbl-kecil:hover{border-color:var(--sorot)}
+
+nav.menu{display:flex;gap:6px;overflow-x:auto;padding:0 clamp(12px,3vw,26px) 10px;scrollbar-width:thin}
+nav.menu button{
+  flex:none;background:transparent;border:1px solid var(--garis);color:var(--teks-redup);
+  padding:8px 14px;border-radius:99px;font-size:.85rem;font-weight:700;cursor:pointer;white-space:nowrap;
+  transition:background .2s,color .2s,border-color .2s;font-family:inherit;
+}
+nav.menu button:hover{color:var(--teks);border-color:var(--sorot)}
+nav.menu button.aktif{background:var(--sorot);border-color:var(--sorot);color:#04131B}
+nav.menu button .tanda{color:var(--nyala);margin-left:5px}
+
+/* ---------------- KERANGKA HALAMAN ---------------- */
+main{max-width:1120px;margin:0 auto;padding:clamp(18px,4vw,34px) clamp(12px,3vw,26px)}
+.halaman{display:none;animation:masuk .45s ease}
+.halaman.tampil{display:block}
+@keyframes masuk{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.kartu{background:var(--panel);border:1px solid var(--garis);border-radius:var(--lengkung);padding:clamp(16px,3vw,26px);margin-bottom:18px}
+.judul-hal{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.judul-hal .lencana{font-size:1.9rem}
+.sub{color:var(--teks-redup);max-width:65ch}
+
+/* ---------------- BERANDA ---------------- */
+.beranda{position:relative;overflow:hidden;border-radius:26px;border:1px solid var(--garis);
+  background:radial-gradient(1000px 420px at 82% -8%, rgba(56,217,240,.20), transparent 60%),
+             radial-gradient(760px 380px at 8% 108%, rgba(167,139,250,.18), transparent 60%),
+             var(--panel);
+  padding:clamp(26px,5vw,52px);text-align:center;margin-bottom:18px}
+.beranda .kecil{font-size:.8rem;font-weight:800;letter-spacing:.16em;color:var(--sorot);margin-bottom:14px}
+.beranda h1{font-size:clamp(1.9rem,6.4vw,3.5rem);line-height:1.02;margin-bottom:12px}
+.beranda h1 .garis{display:block}
+.beranda .slogan{font-size:clamp(1rem,2.4vw,1.2rem);color:var(--teks-redup);margin:0 auto 26px;max-width:46ch}
+.tombol-besar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:34px}
+.tbl{
+  font-family:inherit;font-size:1.02rem;font-weight:800;cursor:pointer;border:none;
+  padding:15px 30px;border-radius:99px;background:linear-gradient(135deg,var(--sorot),#12A5C4);color:#04131B;
+  box-shadow:0 8px 26px rgba(56,217,240,.28);transition:transform .15s,box-shadow .2s;
+}
+.tbl:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(56,217,240,.42)}
+.tbl:active{transform:translateY(0)}
+.tbl.garis2{background:transparent;border:2px solid var(--garis);color:var(--teks);box-shadow:none}
+.tbl.garis2:hover{border-color:var(--sorot)}
+.tbl.kuning{background:linear-gradient(135deg,var(--hangat),#F09000);box-shadow:0 8px 26px rgba(255,192,67,.25)}
+.tbl.hijau{background:linear-gradient(135deg,var(--nyala),#17A75A);box-shadow:0 8px 26px rgba(52,226,122,.25)}
+
+.papan-led{display:flex;gap:clamp(10px,3vw,22px);justify-content:center;flex-wrap:wrap;margin-bottom:8px}
+.led-demo{width:clamp(40px,9vw,58px);height:clamp(40px,9vw,58px);border-radius:50%;background:#16223E;border:3px solid var(--garis);display:grid;place-items:center;font-weight:800;color:var(--mati);font-size:1.1rem}
+.led-demo.on{background:radial-gradient(circle at 35% 30%, #BFFFD8, var(--nyala));border-color:#7BFFB4;color:#04301A;box-shadow:0 0 22px var(--nyala),0 0 46px rgba(52,226,122,.45);animation:kedip 1.6s ease-in-out infinite}
+@keyframes kedip{0%,100%{box-shadow:0 0 18px var(--nyala),0 0 34px rgba(52,226,122,.35)}50%{box-shadow:0 0 30px var(--nyala),0 0 62px rgba(52,226,122,.6)}}
+.ket-beranda{color:var(--teks-redup);font-size:.88rem;margin-top:14px}
+.identitas{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:26px}
+.identitas span{border:1px solid var(--garis);border-radius:99px;padding:6px 14px;font-size:.8rem;color:var(--teks-redup);font-weight:600}
+
+/* ---------------- KOMPONEN UMUM ---------------- */
+.kisi{display:grid;gap:14px}
+.kisi.dua{grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.kisi.tiga{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.kotak{background:var(--panel-2);border:1px solid var(--garis);border-radius:14px;padding:16px}
+.kotak h4{margin-top:0}
+.info{border-left:5px solid var(--hangat);background:rgba(255,192,67,.09);border-radius:12px;padding:12px 16px;margin:14px 0}
+.info p:last-child{margin-bottom:0}
+
+/* akordeon materi */
+.akor{border:1px solid var(--garis);border-radius:14px;margin-bottom:10px;overflow:hidden;background:var(--panel-2)}
+.akor>button.kepala{
+  width:100%;display:flex;align-items:center;gap:12px;text-align:left;font-family:inherit;
+  background:transparent;border:none;color:var(--teks);padding:15px 18px;font-size:1.02rem;font-weight:800;cursor:pointer;
+}
+.akor>button.kepala .panah{margin-left:auto;transition:transform .25s;color:var(--sorot);font-size:1.1rem}
+.akor.buka>button.kepala .panah{transform:rotate(180deg)}
+.akor .isi{display:none;padding:0 18px 18px}
+.akor.buka .isi{display:block;animation:masuk .3s ease}
+.akor .lencana-buka{font-size:.68rem;background:var(--nyala);color:#04301A;border-radius:99px;padding:2px 8px;font-weight:800}
+
+/* tooltip istilah */
+.istilah{border-bottom:2px dotted var(--sorot);cursor:help;position:relative;font-weight:700;color:var(--sorot)}
+.istilah:hover::after,.istilah:focus::after{
+  content:attr(data-tip);position:absolute;left:50%;bottom:135%;transform:translateX(-50%);
+  background:#04101F;color:var(--teks);border:1px solid var(--sorot);border-radius:10px;padding:8px 12px;
+  width:max-content;max-width:250px;font-size:.8rem;font-weight:500;line-height:1.5;z-index:30;box-shadow:0 8px 20px rgba(0,0,0,.5)
+}
+
+/* ---------------- SIMULATOR RANGKAIAN ---------------- */
+.sim{background:var(--panel-2);border:1px solid var(--garis);border-radius:16px;padding:16px;margin:14px 0}
+.sim svg{width:100%;height:auto;display:block;max-height:280px}
+.baris-sakelar{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.sakelar{background:#0E1730;border:2px solid var(--garis);border-radius:14px;padding:10px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;font-family:inherit;color:var(--teks);transition:border-color .2s}
+.sakelar:hover{border-color:var(--sorot)}
+.sakelar .nama{font-weight:800;font-size:.95rem}
+.sakelar .tuas{width:56px;height:30px;border-radius:99px;background:var(--mati);position:relative;transition:background .25s;flex:none}
+.sakelar .tuas::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#EAF2FF;transition:transform .25s}
+.sakelar.on .tuas{background:var(--nyala)}
+.sakelar.on .tuas::after{transform:translateX(26px)}
+.sakelar .nilai{font-weight:800;font-size:1.1rem;min-width:1.4em;text-align:center}
+.sakelar.on .nilai{color:var(--nyala)}
+.sakelar .nilai{color:var(--teks-redup)}
+.hasil-teks{margin-top:14px;text-align:center;font-weight:700;background:#0E1730;border:1px solid var(--garis);border-radius:12px;padding:12px 14px;font-size:.95rem;line-height:1.55}
+.hasil-teks .angka{font-size:1.15rem}
+.pilih-gerbang{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.pilih-gerbang button{font-family:inherit;font-weight:800;font-size:.9rem;padding:9px 20px;border-radius:99px;cursor:pointer;background:transparent;border:2px solid var(--garis);color:var(--teks-redup)}
+.pilih-gerbang button.aktif{background:var(--ungu);border-color:var(--ungu);color:#160E30}
+
+/* elemen svg */
+.kabel{stroke:var(--mati);stroke-width:7;stroke-linecap:round;fill:none;transition:stroke .25s}
+.kabel.hidup{stroke:var(--nyala)}
+.aliran{stroke:#D9FFE9;stroke-width:4;stroke-linecap:round;fill:none;stroke-dasharray:14 22;opacity:0;}
+.kabel.hidup+.aliran{opacity:.95;animation:jalan .9s linear infinite}
+@keyframes jalan{to{stroke-dashoffset:-36}}
+.badan-gerbang{fill:#0E1730;stroke:var(--sorot);stroke-width:4;transition:filter .3s,fill .3s}
+.badan-gerbang.aktif{fill:#123049;filter:drop-shadow(0 0 12px var(--sorot))}
+.tulisan-gerbang{fill:var(--sorot);font-weight:800;font-size:22px;text-anchor:middle;dominant-baseline:central;font-family:inherit}
+.label-svg{fill:var(--teks-redup);font-size:15px;font-weight:700;font-family:inherit;dominant-baseline:central}
+.nilai-svg{font-size:20px;font-weight:800;font-family:inherit;text-anchor:middle;dominant-baseline:central}
+.led-svg{fill:#16223E;stroke:var(--garis);stroke-width:4;transition:fill .3s}
+.led-svg.on{fill:var(--nyala);stroke:#B6FFD5;filter:drop-shadow(0 0 16px var(--nyala))}
+
+/* ---------------- TABEL ---------------- */
+table.tk{width:100%;border-collapse:collapse;margin-top:10px;font-size:.95rem}
+table.tk th,table.tk td{border:1px solid var(--garis);padding:9px 6px;text-align:center;font-weight:700}
+table.tk th{background:var(--panel-2);color:var(--teks-redup);font-size:.85rem}
+table.tk tr{cursor:pointer;transition:background .2s}
+table.tk tbody tr:hover{background:rgba(56,217,240,.1)}
+table.tk tr.sorot{background:rgba(255,192,67,.18);box-shadow:inset 0 0 0 2px var(--hangat)}
+table.tk td.satu{color:var(--nyala)}
+table.tk td.nol{color:var(--teks-redup)}
+
+/* ---------------- SOAL / KUIS ---------------- */
+.soal-kotak{background:var(--panel-2);border:1px solid var(--garis);border-radius:16px;padding:18px;margin-top:14px}
+.soal-teks{font-size:1.1rem;font-weight:800;margin-bottom:14px;line-height:1.45}
+.opsi{display:grid;gap:9px}
+.opsi button{
+  font-family:inherit;text-align:left;background:#0E1730;border:2px solid var(--garis);color:var(--teks);
+  padding:13px 16px;border-radius:12px;font-size:1rem;font-weight:600;cursor:pointer;transition:border-color .15s,background .15s;
+  display:flex;align-items:center;gap:12px;
+}
+.opsi button:hover:not(:disabled){border-color:var(--sorot)}
+.opsi button .huruf{width:28px;height:28px;border-radius:8px;background:var(--panel);display:grid;place-items:center;font-weight:800;font-size:.85rem;flex:none}
+.opsi button.benar{border-color:var(--nyala);background:rgba(52,226,122,.14)}
+.opsi button.benar .huruf{background:var(--nyala);color:#04301A}
+.opsi button.salah{border-color:var(--salah);background:rgba(255,107,129,.14)}
+.opsi button.salah .huruf{background:var(--salah);color:#3A0710}
+.opsi button:disabled{cursor:default;opacity:.95}
+.umpan{margin-top:14px;border-radius:12px;padding:13px 16px;font-weight:700;display:none;animation:masuk .3s ease;line-height:1.55}
+.umpan.tampil{display:block}
+.umpan.ok{background:rgba(52,226,122,.13);border-left:5px solid var(--nyala)}
+.umpan.no{background:rgba(255,107,129,.13);border-left:5px solid var(--salah)}
+.bar-soal{display:flex;align-items:center;gap:12px;font-size:.85rem;color:var(--teks-redup);font-weight:700;margin-bottom:6px;flex-wrap:wrap}
+.bar-soal .rel{flex:1;min-width:120px;height:9px;background:var(--panel);border-radius:99px;overflow:hidden;border:1px solid var(--garis)}
+.bar-soal .rel i{display:block;height:100%;width:0;background:var(--sorot);transition:width .35s}
+
+/* hasil evaluasi */
+.hasil{text-align:center;padding:10px 0}
+.nilai-besar{font-size:clamp(3.4rem,14vw,5.6rem);font-weight:800;line-height:1;background:linear-gradient(135deg,var(--sorot),var(--nyala));-webkit-background-clip:text;background-clip:text;color:transparent}
+.predikat{font-size:1.5rem;font-weight:800;margin:6px 0 4px}
+.ringkas{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:18px 0}
+.ringkas div{background:var(--panel-2);border:1px solid var(--garis);border-radius:14px;padding:12px 18px;min-width:108px}
+.ringkas b{display:block;font-size:1.6rem}
+.ringkas span{font-size:.76rem;color:var(--teks-redup);font-weight:700}
+
+/* konfeti */
+#konfeti{position:fixed;inset:0;pointer-events:none;z-index:99;overflow:hidden}
+.kf{position:absolute;width:10px;height:14px;border-radius:2px;animation:turun linear forwards}
+@keyframes turun{to{transform:translateY(105vh) rotate(720deg);opacity:0}}
+.selamat{position:fixed;left:50%;top:38%;transform:translate(-50%,-50%) scale(.6);z-index:100;
+  background:linear-gradient(135deg,var(--nyala),var(--sorot));color:#04241A;font-weight:800;font-size:1.4rem;
+  padding:18px 34px;border-radius:99px;box-shadow:0 14px 40px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.35s}
+.selamat.tampil{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* petunjuk (modal) */
+.tirai{position:fixed;inset:0;background:rgba(4,8,18,.8);backdrop-filter:blur(4px);z-index:80;display:none;place-items:center;padding:18px}
+.tirai.tampil{display:grid}
+.modal{background:var(--panel);border:1px solid var(--garis);border-radius:20px;padding:24px;max-width:540px;width:100%;max-height:86vh;overflow:auto}
+
+.footer{text-align:center;color:var(--teks-redup);font-size:.82rem;padding:24px 16px 10px;line-height:1.7}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .kemajuan .rel{width:72px}
+  .sim{padding:12px 8px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- ======================= BILAH ATAS ======================= -->
+<header class="bilah">
+  <div class="bilah-atas">
+    <div class="logo">
+      <span class="ic" aria-hidden="true">⚡</span>
+      <span>Gerbang Logika
+        <!-- [EDIT-1] Ganti nama sekolah di baris berikut -->
+        <small>SMP Negeri 1 Kuta Utara · Kelas IX</small>
+      </span>
+    </div>
+    <div class="alat-kanan">
+      <div class="kemajuan" title="Kemajuan belajar">
+        <span id="persenMaju">0%</span>
+        <span class="rel"><i id="relMaju"></i></span>
+      </div>
+      <button class="tbl-kecil" id="tblSuara" aria-label="Hidupkan atau matikan efek suara">🔊 Suara</button>
+      <button class="tbl-kecil" id="tblReset" aria-label="Atur ulang seluruh kemajuan">🔄 Reset</button>
+    </div>
+  </div>
+  <nav class="menu" id="menuUtama" aria-label="Menu utama"></nav>
+</header>
+
+<main>
+
+<!-- ======================= 1. BERANDA ======================= -->
+<section class="halaman tampil" id="hal-beranda">
+  <div class="beranda">
+    <p class="kecil">INFORMATIKA · FASE D · KURIKULUM MERDEKA</p>
+    <h1><span class="garis">EKSPRESI LOGIKA</span><span class="garis">&amp; GERBANG LOGIKA</span></h1>
+    <p class="slogan">Belajar bagaimana komputer mengambil keputusan hanya dengan dua angka: <b>0</b> dan <b>1</b>. Nyalakan sakelarnya, amati lampunya, lalu buktikan sendiri aturannya.</p>
+    <div class="tombol-besar">
+      <button class="tbl" onclick="keHalaman('hal-materi')">🚀 MULAI BELAJAR</button>
+      <button class="tbl garis2" onclick="bukaPetunjuk()">📖 PETUNJUK</button>
+    </div>
+    <div class="papan-led" id="papanLed" aria-hidden="true"></div>
+    <p class="ket-beranda">Lampu di atas sedang menyala dan mati bergantian — persis seperti sinyal listrik di dalam komputer.</p>
+    <div class="identitas">
+      <!-- [EDIT-1] Identitas sekolah dan penyusun -->
+      <span>🏫 SMP Negeri 1 Kuta Utara</span>
+      <span>👨‍🏫 Sang Putu Wahyudi Putra, S.Kom.</span>
+      <span>📚 Berpikir Komputasional</span>
+    </div>
+  </div>
+
+  <div class="kartu">
+    <h2>🎯 Tujuan Pembelajaran</h2>
+    <p class="sub">Setelah menyelesaikan seluruh bagian modul ini, kamu diharapkan mampu:</p>
+    <div class="kisi dua" style="margin-top:14px">
+      <div class="kotak"><h4>1. Nilai logika</h4><p style="margin:0">Memahami konsep nilai logika <b>TRUE</b> (benar) dan <b>FALSE</b> (salah).</p></div>
+      <div class="kotak"><h4>2. Angka biner</h4><p style="margin:0">Memahami makna angka <b>0</b> dan <b>1</b> dalam sistem digital.</p></div>
+      <div class="kotak"><h4>3. Operator logika</h4><p style="margin:0">Menjelaskan fungsi operator <b>AND</b>, <b>OR</b>, dan <b>NOT</b>.</p></div>
+      <div class="kotak"><h4>4. Simbol gerbang</h4><p style="margin:0">Mengenali simbol gerbang logika AND, OR, dan NOT.</p></div>
+      <div class="kotak"><h4>5. Tabel kebenaran</h4><p style="margin:0">Membaca dan menafsirkan tabel kebenaran dengan tepat.</p></div>
+      <div class="kotak"><h4>6. Menentukan output</h4><p style="margin:0">Menentukan hasil keluaran dari sebuah rangkaian logika.</p></div>
+      <div class="kotak"><h4>7. Penerapan nyata</h4><p style="margin:0">Menerapkan logika pada situasi kehidupan sehari-hari.</p></div>
+      <div class="kotak" style="border-color:var(--sorot)"><h4>🧭 Alur belajar</h4><p style="margin:0">Materi → Lab → Tabel Kebenaran → Tantangan → Kuis.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= 2. MATERI ======================= -->
+<section class="halaman" id="hal-materi">
+  <div class="judul-hal"><span class="lencana">📘</span><h2>Materi Pembelajaran</h2></div>
+  <p class="sub">Ketuk setiap judul untuk membukanya. Bagian yang sudah kamu buka akan diberi tanda ✓ dan menambah kemajuan belajarmu.</p>
+
+  <div class="kartu" style="margin-top:16px">
+
+    <!-- A. KONSEP DASAR -->
+    <div class="akor" data-materi="konsep">
+      <button class="kepala" onclick="bukaAkor(this)"><span>🔎</span> A. Konsep Dasar Logika <span class="panah">⌄</span></button>
+      <div class="isi">
+        <p>Komputer tidak mengenal kata "mungkin". Ia hanya mengenal dua keadaan: ada listrik atau tidak ada listrik. Dua keadaan itulah yang kita sebut nilai logika.</p>
+        <div class="kisi dua">
+          <div class="kotak" style="border-color:var(--nyala)">
+            <h4 style="color:var(--nyala)">TRUE = BENAR = 1 = ON</h4>
+            <p style="margin:0">Ada arus listrik. Lampu menyala. Pernyataan bernilai benar.</p>
+          </div>
+          <div class="kotak">
+            <h4 style="color:var(--teks-redup)">FALSE = SALAH = 0 = OFF</h4>
+            <p style="margin:0">Tidak ada arus listrik. Lampu mati. Pernyataan bernilai salah.</p>
+          </div>
+        </div>
+        <div class="info">
+          <p><b>Contoh sederhana.</b> "Jika lampu menyala → nilai logikanya <b>1</b>." &nbsp;·&nbsp; "Jika lampu mati → nilai logikanya <b>0</b>." Satuan terkecil informasi ini disebut
+          <span class="istilah" tabindex="0" data-tip="Bit = binary digit, satuan terkecil data yang hanya bernilai 0 atau 1.">bit</span>.</p>
+        </div>
+        <h4>Coba sendiri</h4>
+        <div class="sim" style="text-align:center">
+          <div id="lampuDemo" style="margin:6px auto 4px;width:120px;height:120px;border-radius:50%;background:#16223E;border:5px solid var(--garis);display:grid;place-items:center;font-size:3rem">💡</div>
+          <p id="lampuTeks" style="font-weight:800;margin:10px 0 0">Keadaan: <span style="color:var(--teks-redup)">MATI · FALSE · 0</span></p>
+          <div class="baris-sakelar">
+            <button class="tbl hijau" onclick="setLampu(true)">🔛 ON</button>
+            <button class="tbl garis2" onclick="setLampu(false)">⭕ OFF</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B. OPERATOR AND -->
+    <div class="akor" data-materi="and">
+      <button class="kepala" onclick="bukaAkor(this)"><span>⚡</span> B. Operator AND <span class="panah">⌄</span></button>
+      <div class="isi">
+        <p><b>AND menghasilkan TRUE hanya jika seluruh input bernilai TRUE.</b> Cukup satu input bernilai 0, hasilnya langsung 0. Kata kuncinya: <i>"kedua-duanya harus"</i>.</p>
+        <p>Persamaan logika: <b>Y = A AND B</b> &nbsp;atau ditulis&nbsp; <b>Y = A · B</b></p>
+        <div id="simAnd"></div>
+        <p style="margin-top:10px">Bayangkan dua sakelar dipasang <b>berderet</b> pada satu kabel. Listrik hanya sampai ke lampu kalau sakelar pertama dan sakelar kedua sama-sama tertutup.</p>
+        <div id="tkAnd"></div>
+      </div>
+    </div>
+
+    <!-- C. OPERATOR OR -->
+    <div class="akor" data-materi="or">
+      <button class="kepala" onclick="bukaAkor(this)"><span>🔀</span> C. Operator OR <span class="panah">⌄</span></button>
+      <div class="isi">
+        <p><b>OR menghasilkan TRUE jika minimal satu input bernilai TRUE.</b> Hasilnya hanya 0 kalau semua input 0. Kata kuncinya: <i>"salah satu saja cukup"</i>.</p>
+        <p>Persamaan logika: <b>Y = A OR B</b> &nbsp;atau ditulis&nbsp; <b>Y = A + B</b></p>
+        <div id="simOr"></div>
+        <p style="margin-top:10px">Bayangkan dua sakelar dipasang <b>bersebelahan</b> (paralel). Listrik tetap sampai ke lampu asalkan salah satu jalur terbuka.</p>
+        <div id="tkOr"></div>
+      </div>
+    </div>
+
+    <!-- D. OPERATOR NOT -->
+    <div class="akor" data-materi="not">
+      <button class="kepala" onclick="bukaAkor(this)"><span>🔄</span> D. Operator NOT <span class="panah">⌄</span></button>
+      <div class="isi">
+        <p><b>NOT membalik nilai input.</b> Gerbang ini hanya punya satu input. Kata kuncinya: <i>"kebalikannya"</i>. Disebut juga <span class="istilah" tabindex="0" data-tip="Inverter = pembalik. Nama lain gerbang NOT karena keluarannya selalu berlawanan dengan masukannya.">inverter</span>.</p>
+        <p>Persamaan logika: <b>Y = NOT A</b> &nbsp;atau ditulis&nbsp; <b>Y = A'</b> &nbsp;(dibaca "A aksen")</p>
+        <div id="simNot"></div>
+        <div id="tkNot"></div>
+      </div>
+    </div>
+
+    <!-- E. PENERAPAN -->
+    <div class="akor" data-materi="terap">
+      <button class="kepala" onclick="bukaAkor(this)"><span>🏠</span> E. Penerapan dalam Kehidupan Sehari-hari <span class="panah">⌄</span></button>
+      <div class="isi">
+        <p>Tiga alat di sekitarmu ini benar-benar memakai gerbang logika. Mainkan sakelarnya dan amati keputusan yang diambil alat tersebut.</p>
+
+        <div class="kotak" style="margin-bottom:12px">
+          <h4>🔐 Kasus 1 — Sistem Keamanan Pintu (AND)</h4>
+          <p style="font-size:.95rem">Pintu hanya terbuka jika <b>kartu valid AND PIN benar</b>. Kedua syarat wajib terpenuhi.</p>
+          <div class="baris-sakelar" id="kasus1Sakelar"></div>
+          <div class="hasil-teks" id="kasus1Hasil"></div>
+        </div>
+
+        <div class="kotak" style="margin-bottom:12px">
+          <h4>🚨 Kasus 2 — Alarm Rumah (OR)</h4>
+          <p style="font-size:.95rem">Alarm berbunyi jika <b>sensor gerak OR sensor pintu</b> aktif. Satu sensor saja sudah cukup.</p>
+          <div class="baris-sakelar" id="kasus2Sakelar"></div>
+          <div class="hasil-teks" id="kasus2Hasil"></div>
+        </div>
+
+        <div class="kotak">
+          <h4>💡 Kasus 3 — Lampu Taman Otomatis (NOT)</h4>
+          <p style="font-size:.95rem">Sensor cahaya bernilai <b>1 saat terang</b>. Lampu justru harus menyala saat gelap, jadi sinyalnya dibalik: <b>Lampu = NOT Sensor Cahaya</b>.</p>
+          <div class="baris-sakelar" id="kasus3Sakelar"></div>
+          <div class="hasil-teks" id="kasus3Hasil"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kartu">
+    <h2>🔺 Kenali Gerbang Logika</h2>
+    <p class="sub">Ketuk salah satu kartu untuk membuka penjelasan lengkap beserta simbol resminya.</p>
+    <div class="kisi tiga" id="kartuGerbang" style="margin-top:14px"></div>
+    <div id="rincianGerbang"></div>
+  </div>
+</section>
+
+<!-- ======================= 3-5. HALAMAN AND / OR / NOT ======================= -->
+<section class="halaman" id="hal-and">
+  <div class="judul-hal"><span class="lencana">⚡</span><h2>Gerbang AND</h2></div>
+  <p class="sub">Aturan: keluaran bernilai 1 <b>hanya jika semua masukan bernilai 1</b>.</p>
+  <div class="kartu"><div id="simAnd2"></div><div id="tkAnd2"></div></div>
+</section>
+
+<section class="halaman" id="hal-or">
+  <div class="judul-hal"><span class="lencana">🔀</span><h2>Gerbang OR</h2></div>
+  <p class="sub">Aturan: keluaran bernilai 1 <b>jika minimal satu masukan bernilai 1</b>.</p>
+  <div class="kartu"><div id="simOr2"></div><div id="tkOr2"></div></div>
+</section>
+
+<section class="halaman" id="hal-not">
+  <div class="judul-hal"><span class="lencana">🔄</span><h2>Gerbang NOT</h2></div>
+  <p class="sub">Aturan: keluaran selalu <b>berlawanan</b> dengan masukan.</p>
+  <div class="kartu"><div id="simNot2"></div><div id="tkNot2"></div></div>
+</section>
+
+<!-- ======================= 6. LABORATORIUM ======================= -->
+<section class="halaman" id="hal-lab">
+  <div class="judul-hal"><span class="lencana">🔬</span><h2>Laboratorium Gerbang Logika</h2></div>
+  <p class="sub">Pilih gerbangnya, ubah masukannya, lalu amati bagaimana sinyal mengalir di sepanjang kabel menuju lampu keluaran.</p>
+  <div class="kartu" style="margin-top:16px">
+    <div id="simLab"></div>
+    <div class="info"><p><b>Ubah input dan amati bagaimana gerbang logika memprosesnya.</b> Kabel yang berwarna hijau dan berkedip berarti sedang dialiri sinyal bernilai 1. Kabel abu-abu berarti bernilai 0.</p></div>
+    <h3>Catatan pengamatanmu</h3>
+    <p>Isi tabel berikut di buku tulismu sambil mencoba seluruh kombinasi di laboratorium ini: gerbang apa yang kamu pilih, berapa nilai A dan B, dan berapa keluarannya. Setelah 12 percobaan, tuliskan satu kesimpulan untuk masing-masing gerbang.</p>
+  </div>
+</section>
+
+<!-- ======================= 7. TABEL KEBENARAN ======================= -->
+<section class="halaman" id="hal-tabel">
+  <div class="judul-hal"><span class="lencana">📊</span><h2>Tabel Kebenaran Interaktif</h2></div>
+  <p class="sub">Tabel kebenaran adalah daftar lengkap semua kemungkinan masukan beserta keluarannya. Ketuk salah satu baris — rangkaian di bawah akan langsung menirukan kombinasi itu.</p>
+
+  <div class="kartu" style="margin-top:16px">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:8px">
+      <button class="tbl kuning" onclick="acakKombinasi()">🎲 Coba Kombinasi</button>
+      <button class="tbl garis2" onclick="bersihkanSorot()">↺ Hapus Sorotan</button>
+    </div>
+    <div class="kisi tiga" style="margin-top:14px">
+      <div class="kotak"><h4>Gerbang AND</h4><div id="tabelAnd"></div></div>
+      <div class="kotak"><h4>Gerbang OR</h4><div id="tabelOr"></div></div>
+      <div class="kotak"><h4>Gerbang NOT</h4><div id="tabelNot"></div></div>
+    </div>
+    <h3>Rangkaian mengikuti barismu</h3>
+    <div id="simTabel"></div>
+  </div>
+</section>
+
+<!-- ======================= 8. TANTANGAN + MINI GAME ======================= -->
+<section class="halaman" id="hal-tantangan">
+  <div class="judul-hal"><span class="lencana">🎯</span><h2>Tantangan Logika</h2></div>
+  <p class="sub">Soal berbasis situasi. Jawab dulu di kepala sebelum memilih — setiap jawaban akan dijelaskan alasannya.</p>
+
+  <div class="kartu" style="margin-top:16px">
+    <div class="bar-soal">
+      <span id="tanNomor">Soal 1</span>
+      <span class="rel"><i id="tanRel"></i></span>
+      <span>Skor: <b id="tanSkor" style="color:var(--nyala)">0</b></span>
+    </div>
+    <div id="tanIsi"></div>
+  </div>
+
+  <div class="kartu">
+    <h2>🎮 Mini Game: Tebak Output</h2>
+    <p class="sub">Sepuluh ronde, setiap jawaban benar bernilai +10. Perhatikan gerbangnya baik-baik — yang membuat siswa keliru biasanya karena buru-buru.</p>
+    <div id="gameIsi" style="margin-top:14px"></div>
+  </div>
+</section>
+
+<!-- ======================= 9. KUIS + EVALUASI ======================= -->
+<section class="halaman" id="hal-kuis">
+  <div class="judul-hal"><span class="lencana">🏆</span><h2>Kuis Akhir</h2></div>
+  <p class="sub">20 soal pilihan ganda. Urutan soal dan urutan pilihan jawaban diacak setiap kali kuis dimulai, jadi jangan menghafal posisi jawabannya.</p>
+  <div class="kartu" style="margin-top:16px" id="kuisPembungkus">
+    <div id="kuisMulai">
+      <div class="kisi tiga" style="margin-bottom:16px">
+        <div class="kotak"><h4>📝 20 soal</h4><p style="margin:0;font-size:.92rem">Pilihan ganda, 4 opsi jawaban.</p></div>
+        <div class="kotak"><h4>🎲 Diacak</h4><p style="margin:0;font-size:.92rem">Soal dan opsi diacak otomatis.</p></div>
+        <div class="kotak"><h4>💯 Nilai 0–100</h4><p style="margin:0;font-size:.92rem">Dihitung langsung beserta predikatnya.</p></div>
+      </div>
+      <button class="tbl" onclick="mulaiKuis()">🚀 Mulai Kuis Sekarang</button>
+    </div>
+    <div id="kuisJalan" style="display:none"></div>
+    <div id="kuisHasil" style="display:none"></div>
+  </div>
+</section>
+
+</main>
+
+<div class="footer">
+  <p><b>Modul Pembelajaran Interaktif — Ekspresi Logika dan Gerbang Logika</b><br>
+  Informatika Kelas IX · Fase D · Kurikulum Merdeka · SMP Negeri 1 Kuta Utara<br>
+  Disusun oleh Sang Putu Wahyudi Putra, S.Kom. · Dapat dijalankan sepenuhnya tanpa koneksi internet.</p>
+</div>
+
+<!-- petunjuk -->
+<div class="tirai" id="tiraiPetunjuk" role="dialog" aria-modal="true" aria-label="Petunjuk penggunaan">
+  <div class="modal">
+    <h2>📖 Petunjuk Penggunaan</h2>
+    <ol style="margin-top:12px">
+      <li>Gunakan <b>menu di bagian atas</b> untuk berpindah bagian. Menu bisa digeser ke samping pada layar kecil.</li>
+      <li>Mulailah dari <b>📘 Materi</b>, buka setiap bagian satu per satu. Bagian yang sudah dibuka ditandai ✓.</li>
+      <li>Setiap simulasi punya <b>sakelar</b>. Ketuk sakelar untuk mengubah nilai antara 0 dan 1, lalu amati lampu keluarannya.</li>
+      <li>Di <b>🔬 Laboratorium</b> kamu bisa mengganti jenis gerbang tanpa mengubah rangkaiannya.</li>
+      <li>Kerjakan <b>🎯 Tantangan</b> dan <b>🎮 Mini Game</b> sebagai latihan sebelum masuk ke kuis.</li>
+      <li>Selesaikan <b>🏆 Kuis</b> berisi 20 soal untuk melihat nilai dan predikatmu.</li>
+      <li>Tombol <b>🔄 Reset</b> di kanan atas mengosongkan seluruh kemajuan dan skor.</li>
+    </ol>
+    <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+      <button class="tbl" onclick="tutupPetunjuk()">Mengerti</button>
+      <button class="tbl garis2" onclick="tutupPetunjuk();keHalaman('hal-materi')">Langsung ke Materi</button>
+    </div>
+  </div>
+</div>
+
+<div id="konfeti" aria-hidden="true"></div>
+<div class="selamat" id="kotakSelamat" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* ===================================================================
+   BAGIAN 1 — PENGATURAN UMUM & ALAT BANTU
+   =================================================================== */
+
+/* Daftar menu navigasi. Urutan di sini = urutan tampil di layar. */
+var DAFTAR_MENU = [
+  { id:"hal-beranda",   label:"🏠 Beranda" },
+  { id:"hal-materi",    label:"📘 Materi" },
+  { id:"hal-and",       label:"⚡ AND" },
+  { id:"hal-or",        label:"🔀 OR" },
+  { id:"hal-not",       label:"🔄 NOT" },
+  { id:"hal-lab",       label:"🔬 Laboratorium" },
+  { id:"hal-tabel",     label:"📊 Tabel Kebenaran" },
+  { id:"hal-tantangan", label:"🎯 Tantangan" },
+  { id:"hal-kuis",      label:"🏆 Kuis" }
+];
+
+/* Penyimpanan kemajuan belajar (hanya di memori, hilang saat halaman ditutup) */
+var maju = { halaman:{}, materi:{}, skorTantangan:0, skorGame:0, nilaiKuis:null };
+
+var $ = function(id){ return document.getElementById(id); };
+var suaraAktif = true;
+var konteksAudio = null;
+
+/* ----- efek suara sederhana memakai Web Audio (tanpa berkas audio) ----- */
+function bunyi(frekuensi, lama, bentuk){
+  if(!suaraAktif) return;
+  try{
+    if(!konteksAudio) konteksAudio = new (window.AudioContext || window.webkitAudioContext)();
+    var osc = konteksAudio.createOscillator();
+    var gain = konteksAudio.createGain();
+    osc.type = bentuk || "sine";
+    osc.frequency.value = frekuensi;
+    gain.gain.setValueAtTime(0.06, konteksAudio.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, konteksAudio.currentTime + lama);
+    osc.connect(gain); gain.connect(konteksAudio.destination);
+    osc.start(); osc.stop(konteksAudio.currentTime + lama);
+  }catch(e){ /* peramban lama: efek suara diabaikan */ }
+}
+var bunyiKlik  = function(){ bunyi(520, .07, "triangle"); };
+var bunyiBenar = function(){ bunyi(660, .12); setTimeout(function(){ bunyi(880, .18); }, 110); };
+var bunyiSalah = function(){ bunyi(180, .25, "sawtooth"); };
+
+/* ----- navigasi antarhalaman ----- */
+function bangunMenu(){
+  var nav = $("menuUtama");
+  nav.innerHTML = "";
+  DAFTAR_MENU.forEach(function(m){
+    var b = document.createElement("button");
+    b.id = "nav-" + m.id;
+    b.innerHTML = m.label + '<span class="tanda" id="tanda-' + m.id + '"></span>';
+    b.onclick = function(){ keHalaman(m.id); };
+    nav.appendChild(b);
+  });
+}
+function keHalaman(id){
+  document.querySelectorAll(".halaman").forEach(function(s){ s.classList.remove("tampil"); });
+  var h = $(id); if(h) h.classList.add("tampil");
+  DAFTAR_MENU.forEach(function(m){
+    var b = $("nav-" + m.id); if(b) b.classList.toggle("aktif", m.id === id);
+  });
+  var tombolAktif = $("nav-" + id);
+  if(tombolAktif) tombolAktif.scrollIntoView({ block:"nearest", inline:"center" });
+  window.scrollTo({ top:0, behavior:"smooth" });
+  maju.halaman[id] = true;
+  if(id !== "hal-beranda"){ var t = $("tanda-" + id); if(t) t.textContent = "✓"; }
+  hitungKemajuan();
+  bunyiKlik();
+}
+/* Kemajuan = gabungan halaman yang dikunjungi + materi yang dibuka + latihan yang dikerjakan */
+function hitungKemajuan(){
+  var totalHal = DAFTAR_MENU.length - 1;               /* beranda tidak dihitung */
+  var totalMat = 5;                                     /* 5 akordeon materi     */
+  var totalLat = 3;                                     /* tantangan, game, kuis */
+  var dapat = 0;
+  DAFTAR_MENU.forEach(function(m){ if(m.id !== "hal-beranda" && maju.halaman[m.id]) dapat++; });
+  dapat += Object.keys(maju.materi).length;
+  if(maju.skorTantangan > 0) dapat++;
+  if(maju.skorGame > 0) dapat++;
+  if(maju.nilaiKuis !== null) dapat++;
+  var persen = Math.round(dapat / (totalHal + totalMat + totalLat) * 100);
+  if(persen > 100) persen = 100;
+  $("persenMaju").textContent = persen + "%";
+  $("relMaju").style.width = persen + "%";
+}
+
+function bukaPetunjuk(){ $("tiraiPetunjuk").classList.add("tampil"); bunyiKlik(); }
+function tutupPetunjuk(){ $("tiraiPetunjuk").classList.remove("tampil"); }
+$("tiraiPetunjuk").addEventListener("click", function(e){ if(e.target === this) tutupPetunjuk(); });
+document.addEventListener("keydown", function(e){ if(e.key === "Escape") tutupPetunjuk(); });
+
+$("tblSuara").onclick = function(){
+  suaraAktif = !suaraAktif;
+  this.textContent = suaraAktif ? "🔊 Suara" : "🔇 Senyap";
+  if(suaraAktif) bunyiKlik();
+};
+$("tblReset").onclick = function(){
+  if(!confirm("Kosongkan seluruh kemajuan, skor tantangan, mini game, dan hasil kuis?")) return;
+  maju = { halaman:{}, materi:{}, skorTantangan:0, skorGame:0, nilaiKuis:null };
+  document.querySelectorAll(".akor").forEach(function(a){ a.classList.remove("buka"); var l=a.querySelector(".lencana-buka"); if(l) l.remove(); });
+  DAFTAR_MENU.forEach(function(m){ var t=$("tanda-"+m.id); if(t) t.textContent=""; });
+  mulaiTantangan(); mulaiGame();
+  $("kuisMulai").style.display="block"; $("kuisJalan").style.display="none"; $("kuisHasil").style.display="none";
+  hitungKemajuan(); keHalaman("hal-beranda");
+};
+
+/* ===================================================================
+   BAGIAN 2 — LOGIKA GERBANG (INTI PERHITUNGAN)
+   Di sinilah aturan AND, OR, NOT ditulis. Semua simulasi, tabel,
+   tantangan, game, dan kuis memakai fungsi yang sama ini, sehingga
+   hasilnya dijamin konsisten dan benar.
+   =================================================================== */
+function hitungGerbang(gerbang, a, b){
+  if(gerbang === "AND") return (a === 1 && b === 1) ? 1 : 0;
+  if(gerbang === "OR")  return (a === 1 || b === 1) ? 1 : 0;
+  if(gerbang === "NOT") return a === 1 ? 0 : 1;
+  return 0;
+}
+var KETERANGAN_GERBANG = {
+  AND: { nama:"AND", judul:"Gerbang AND (Konjungsi)", ikon:"⚡",
+         fungsi:"Keluaran bernilai 1 hanya jika semua masukan bernilai 1.",
+         rumus:"Y = A · B", kunci:"Kedua-duanya harus benar",
+         nyata:"Mesin ATM: uang keluar hanya jika kartu benar DAN PIN benar. Microwave: menyala hanya jika pintu tertutup DAN tombol start ditekan." },
+  OR:  { nama:"OR", judul:"Gerbang OR (Disjungsi)", ikon:"🔀",
+         fungsi:"Keluaran bernilai 1 jika minimal satu masukan bernilai 1.",
+         rumus:"Y = A + B", kunci:"Salah satu saja sudah cukup",
+         nyata:"Lampu tangga dengan dua sakelar di atas dan di bawah. Alarm mobil yang berbunyi jika pintu dibuka ATAU kaca dipecah." },
+  NOT: { nama:"NOT", judul:"Gerbang NOT (Inverter/Negasi)", ikon:"🔄",
+         fungsi:"Keluaran selalu berlawanan dengan masukan. Hanya punya satu masukan.",
+         rumus:"Y = A'", kunci:"Selalu dibalik",
+         nyata:"Lampu taman otomatis: menyala justru ketika sensor cahaya TIDAK mendeteksi terang. Tombol mute pada TV." }
+};
+
+/* ===================================================================
+   BAGIAN 3 — PENGGAMBAR RANGKAIAN (SVG + ANIMASI SINYAL)
+   =================================================================== */
+function bentukGerbang(gerbang){
+  if(gerbang === "AND") return '<path class="badan-gerbang" d="M250,52 H292 A58,58 0 0 1 292,168 H250 Z"/>';
+  if(gerbang === "OR")  return '<path class="badan-gerbang" d="M246,52 Q286,110 246,168 Q322,168 350,110 Q322,52 246,52 Z"/>';
+  return '<g><path class="badan-gerbang" d="M252,52 L252,168 L336,110 Z"/><circle class="badan-gerbang" cx="346" cy="110" r="11"/></g>';
+}
+/* Menghasilkan kode SVG rangkaian lengkap dengan kabel beranimasi */
+function gambarRangkaian(gerbang, a, b, keluaran){
+  var duaInput = (gerbang !== "NOT");
+  var s = '<svg viewBox="0 0 640 220" role="img" aria-label="Rangkaian gerbang ' + gerbang +
+          ' dengan keluaran ' + keluaran + '">';
+
+  if(duaInput){
+    /* kabel masukan A: lurus lalu menikung ke badan gerbang */
+    var jalurA = "M96,62 H250";
+    var jalurB = "M96,158 H250";
+    s += '<path class="kabel' + (a ? " hidup" : "") + '" d="' + jalurA + '"/><path class="aliran" d="' + jalurA + '"/>';
+    s += '<path class="kabel' + (b ? " hidup" : "") + '" d="' + jalurB + '"/><path class="aliran" d="' + jalurB + '"/>';
+    s += '<text class="label-svg" x="20" y="62">A</text><text class="label-svg" x="20" y="158">B</text>';
+    s += '<circle cx="66" cy="62" r="16" fill="#0E1730" stroke="' + (a ? "var(--nyala)" : "var(--mati)") + '" stroke-width="4"/>';
+    s += '<text class="nilai-svg" x="66" y="62" fill="' + (a ? "var(--nyala)" : "var(--teks-redup)") + '">' + a + '</text>';
+    s += '<circle cx="66" cy="158" r="16" fill="#0E1730" stroke="' + (b ? "var(--nyala)" : "var(--mati)") + '" stroke-width="4"/>';
+    s += '<text class="nilai-svg" x="66" y="158" fill="' + (b ? "var(--nyala)" : "var(--teks-redup)") + '">' + b + '</text>';
+  }else{
+    var jalurN = "M96,110 H252";
+    s += '<path class="kabel' + (a ? " hidup" : "") + '" d="' + jalurN + '"/><path class="aliran" d="' + jalurN + '"/>';
+    s += '<text class="label-svg" x="20" y="110">A</text>';
+    s += '<circle cx="66" cy="110" r="16" fill="#0E1730" stroke="' + (a ? "var(--nyala)" : "var(--mati)") + '" stroke-width="4"/>';
+    s += '<text class="nilai-svg" x="66" y="110" fill="' + (a ? "var(--nyala)" : "var(--teks-redup)") + '">' + a + '</text>';
+  }
+
+  /* badan gerbang + nama */
+  s += bentukGerbang(gerbang);
+  var xTeks = gerbang === "OR" ? 300 : (gerbang === "NOT" ? 285 : 288);
+  s += '<text class="tulisan-gerbang" x="' + xTeks + '" y="110">' + gerbang + '</text>';
+
+  /* kabel keluaran + lampu LED */
+  var xAwal = gerbang === "OR" ? 350 : (gerbang === "NOT" ? 357 : 350);
+  var jalurY = "M" + xAwal + ",110 H500";
+  s += '<path class="kabel' + (keluaran ? " hidup" : "") + '" d="' + jalurY + '"/><path class="aliran" d="' + jalurY + '"/>';
+  s += '<circle class="led-svg' + (keluaran ? " on" : "") + '" cx="540" cy="110" r="34"/>';
+  s += '<text class="nilai-svg" x="540" y="110" fill="' + (keluaran ? "#04301A" : "var(--teks-redup)") + '" style="font-size:26px">' + keluaran + '</text>';
+  s += '<text class="label-svg" x="540" y="172" text-anchor="middle" fill="' + (keluaran ? "var(--nyala)" : "var(--teks-redup)") + '">' +
+       (keluaran ? "BENAR / TRUE" : "SALAH / FALSE") + '</text>';
+  s += '<text class="label-svg" x="540" y="42" text-anchor="middle">OUTPUT (Y)</text>';
+  s += "</svg>";
+  return s;
+}
+
+/* Penjelasan otomatis sesuai kondisi masukan */
+function penjelasanOtomatis(gerbang, a, b, y){
+  if(gerbang === "AND"){
+    if(a === 1 && b === 1) return "A=1 <b>dan</b> B=1. Karena <b>semua</b> masukan bernilai 1, gerbang AND meneruskan sinyal. Output = <b>1 (BENAR)</b>.";
+    return "A=" + a + " dan B=" + b + ". Ada masukan yang bernilai 0, sedangkan AND menuntut <b>semuanya</b> bernilai 1. Output = <b>0 (SALAH)</b>.";
+  }
+  if(gerbang === "OR"){
+    if(a === 0 && b === 0) return "A=0 dan B=0. Tidak ada satu pun masukan bernilai 1, sehingga OR tidak punya sinyal untuk diteruskan. Output = <b>0 (SALAH)</b>.";
+    return "A=" + a + " dan B=" + b + ". Minimal satu masukan bernilai 1, dan itu sudah cukup bagi gerbang OR. Output = <b>1 (BENAR)</b>.";
+  }
+  return "A=" + a + ". Gerbang NOT membalik nilai masukan, sehingga " + a + " berubah menjadi <b>" + y + "</b> (" + (y ? "BENAR" : "SALAH") + ").";
+}
+
+/*
+  buatSimulator — membuat satu unit simulasi lengkap.
+  wadahId      : id elemen tempat simulator dipasang
+  opsi.gerbang : "AND" | "OR" | "NOT"  (nilai awal)
+  opsi.ganti   : true  -> siswa boleh mengganti jenis gerbang
+*/
+function buatSimulator(wadahId, opsi){
+  var wadah = $(wadahId);
+  if(!wadah) return null;
+  var st = { gerbang: opsi.gerbang || "AND", a:0, b:0 };
+
+  wadah.innerHTML =
+    '<div class="sim">' +
+      (opsi.ganti ? '<div class="pilih-gerbang" role="group" aria-label="Pilih jenis gerbang">' +
+        '<button data-g="AND">⚡ AND</button><button data-g="OR">🔀 OR</button><button data-g="NOT">🔄 NOT</button></div>' : '') +
+      '<div class="gambar"></div>' +
+      '<div class="baris-sakelar"></div>' +
+      '<div class="hasil-teks" role="status" aria-live="polite"></div>' +
+    '</div>';
+
+  var elGambar = wadah.querySelector(".gambar");
+  var elSakelar = wadah.querySelector(".baris-sakelar");
+  var elHasil = wadah.querySelector(".hasil-teks");
+
+  function sakelarHTML(nama, nilai, kunci){
+    return '<button class="sakelar' + (nilai ? " on" : "") + '" data-in="' + kunci + '" ' +
+           'aria-pressed="' + (nilai ? "true" : "false") + '">' +
+           '<span class="nama">' + nama + '</span><span class="tuas"></span>' +
+           '<span class="nilai">' + nilai + '</span></button>';
+  }
+
+  function gambar(){
+    var y = hitungGerbang(st.gerbang, st.a, st.b);
+    elGambar.innerHTML = gambarRangkaian(st.gerbang, st.a, st.b, y);
+    var h = sakelarHTML("Input A", st.a, "a");
+    if(st.gerbang !== "NOT") h += sakelarHTML("Input B", st.b, "b");
+    h += '<button class="tbl garis2" data-acak="1" style="padding:10px 20px">🎲 Acak</button>';
+    elSakelar.innerHTML = h;
+    elSakelar.querySelectorAll(".sakelar").forEach(function(s){
+      s.onclick = function(){
+        var k = s.dataset["in"];
+        st[k] = st[k] ? 0 : 1;
+        bunyi(st[k] ? 700 : 340, .08, "square");
+        gambar();
+      };
+    });
+    elSakelar.querySelector("[data-acak]").onclick = function(){
+      st.a = Math.random() < .5 ? 0 : 1;
+      st.b = Math.random() < .5 ? 0 : 1;
+      bunyiKlik(); gambar();
+    };
+    var warna = y ? "var(--nyala)" : "var(--teks-redup)";
+    elHasil.innerHTML =
+      '<span class="angka">' + (st.gerbang === "NOT"
+        ? ("NOT " + st.a)
+        : (st.a + " " + st.gerbang + " " + st.b)) +
+      ' = <span style="color:' + warna + '">' + y + '</span> (' + (y ? "BENAR" : "SALAH") + ')</span><br>' +
+      '<span style="font-weight:600;color:var(--teks-redup)">' + penjelasanOtomatis(st.gerbang, st.a, st.b, y) + '</span>';
+
+    if(opsi.ganti){
+      wadah.querySelectorAll(".pilih-gerbang button").forEach(function(b){
+        b.classList.toggle("aktif", b.dataset.g === st.gerbang);
+      });
+    }
+  }
+
+  if(opsi.ganti){
+    wadah.querySelectorAll(".pilih-gerbang button").forEach(function(b){
+      b.onclick = function(){ st.gerbang = b.dataset.g; bunyiKlik(); gambar(); };
+    });
+  }
+  gambar();
+
+  /* dikembalikan supaya bagian lain (tabel kebenaran) bisa mengatur nilainya */
+  return { atur:function(g,a,b){ st.gerbang=g; st.a=a; st.b=b; gambar(); } };
+}
+
+/* ===================================================================
+   BAGIAN 4 — TABEL KEBENARAN
+   =================================================================== */
+function buatTabel(wadahId, gerbang, bisaDiklik){
+  var w = $(wadahId); if(!w) return;
+  var baris = gerbang === "NOT" ? [[0],[1]] : [[0,0],[0,1],[1,0],[1,1]];
+  var h = '<table class="tk"><thead><tr><th>A</th>' + (gerbang === "NOT" ? "" : "<th>B</th>") +
+          '<th>OUTPUT (Y)</th></tr></thead><tbody>';
+  baris.forEach(function(r){
+    var a = r[0], b = (gerbang === "NOT" ? 0 : r[1]);
+    var y = hitungGerbang(gerbang, a, b);
+    h += '<tr data-g="' + gerbang + '" data-a="' + a + '" data-b="' + b + '" tabindex="0">' +
+         '<td class="' + (a ? "satu" : "nol") + '">' + a + '</td>' +
+         (gerbang === "NOT" ? "" : '<td class="' + (b ? "satu" : "nol") + '">' + b + '</td>') +
+         '<td class="' + (y ? "satu" : "nol") + '">' + y + " " + (y ? "✔" : "✖") + '</td></tr>';
+  });
+  h += "</tbody></table>";
+  if(!bisaDiklik) h += '<p style="font-size:.8rem;color:var(--teks-redup);margin:8px 0 0">✔ = BENAR (1) &nbsp;·&nbsp; ✖ = SALAH (0)</p>';
+  w.innerHTML = h;
+
+  if(bisaDiklik){
+    w.querySelectorAll("tbody tr").forEach(function(tr){
+      var jalankan = function(){
+        bersihkanSorot();
+        tr.classList.add("sorot");
+        simTabel.atur(tr.dataset.g, +tr.dataset.a, +tr.dataset.b);
+        bunyiKlik();
+        $("simTabel").scrollIntoView({ behavior:"smooth", block:"center" });
+      };
+      tr.onclick = jalankan;
+      tr.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); jalankan(); } };
+    });
+  }
+}
+function bersihkanSorot(){
+  document.querySelectorAll("table.tk tr.sorot").forEach(function(t){ t.classList.remove("sorot"); });
+}
+function acakKombinasi(){
+  var gerbang = ["AND","OR","NOT"][Math.floor(Math.random()*3)];
+  var a = Math.random() < .5 ? 0 : 1, b = Math.random() < .5 ? 0 : 1;
+  if(gerbang === "NOT") b = 0;
+  bersihkanSorot();
+  var baris = document.querySelector('table.tk tr[data-g="' + gerbang + '"][data-a="' + a + '"][data-b="' + b + '"]');
+  if(baris){ baris.classList.add("sorot"); baris.scrollIntoView({ behavior:"smooth", block:"center" }); }
+  simTabel.atur(gerbang, a, b);
+  bunyiKlik();
+}
+
+/* ===================================================================
+   BAGIAN 5 — MATERI: AKORDEON, LAMPU, KARTU GERBANG, KASUS NYATA
+   =================================================================== */
+function bukaAkor(tombol){
+  var akor = tombol.parentElement;
+  akor.classList.toggle("buka");
+  bunyiKlik();
+  if(akor.classList.contains("buka")){
+    var nama = akor.dataset.materi;
+    if(!maju.materi[nama]){
+      maju.materi[nama] = true;
+      var l = document.createElement("span");
+      l.className = "lencana-buka"; l.textContent = "✓ dibuka";
+      tombol.insertBefore(l, tombol.querySelector(".panah"));
+      hitungKemajuan();
+    }
+  }
+}
+function setLampu(nyala){
+  var l = $("lampuDemo"), t = $("lampuTeks");
+  if(nyala){
+    l.style.background = "radial-gradient(circle at 35% 30%, #FFF6C8, var(--hangat))";
+    l.style.borderColor = "#FFE08A";
+    l.style.boxShadow = "0 0 34px var(--hangat), 0 0 70px rgba(255,192,67,.5)";
+    t.innerHTML = 'Keadaan: <span style="color:var(--nyala)">MENYALA · TRUE · 1</span>';
+    bunyi(760,.14);
+  }else{
+    l.style.background = "#16223E"; l.style.borderColor = "var(--garis)"; l.style.boxShadow = "none";
+    t.innerHTML = 'Keadaan: <span style="color:var(--teks-redup)">MATI · FALSE · 0</span>';
+    bunyi(300,.12);
+  }
+}
+
+/* kartu "Kenali Gerbang Logika" */
+function bangunKartuGerbang(){
+  var w = $("kartuGerbang"); w.innerHTML = "";
+  ["AND","OR","NOT"].forEach(function(g){
+    var k = KETERANGAN_GERBANG[g];
+    var d = document.createElement("button");
+    d.className = "kotak";
+    d.style.cssText = "cursor:pointer;text-align:left;font-family:inherit;color:inherit;font-size:1rem";
+    d.innerHTML = '<div style="font-size:2rem">' + k.ikon + '</div>' +
+      '<h4 style="margin:6px 0 4px">Gerbang ' + k.nama + '</h4>' +
+      '<p style="margin:0;font-size:.9rem;color:var(--teks-redup)">' + k.kunci + '</p>' +
+      '<p style="margin:8px 0 0;font-weight:800;color:var(--sorot)">Ketuk untuk detail →</p>';
+    d.onclick = function(){ tampilRincian(g); };
+    w.appendChild(d);
+  });
+  tampilRincian("AND");
+}
+function tampilRincian(g){
+  var k = KETERANGAN_GERBANG[g];
+  var w = $("rincianGerbang");
+  w.innerHTML =
+    '<div class="kotak" style="margin-top:14px;border-color:var(--sorot)">' +
+      '<h3 style="margin-top:0">' + k.ikon + " " + k.judul + '</h3>' +
+      '<div class="kisi dua">' +
+        '<div>' +
+          '<h4>Fungsi</h4><p style="font-size:.95rem">' + k.fungsi + '</p>' +
+          '<h4>Persamaan logika</h4><p style="font-size:1.15rem;font-weight:800;color:var(--sorot)">' + k.rumus + '</p>' +
+          '<h4>Contoh kehidupan nyata</h4><p style="font-size:.95rem;margin-bottom:0">' + k.nyata + '</p>' +
+        '</div>' +
+        '<div>' +
+          '<h4>Simbol gerbang</h4>' +
+          '<div style="background:#0E1730;border:1px solid var(--garis);border-radius:12px;padding:8px">' +
+            '<svg viewBox="180 30 260 160" style="width:100%;height:auto">' + bentukGerbang(g) +
+            '<text class="tulisan-gerbang" x="' + (g === "OR" ? 300 : 288) + '" y="110">' + g + '</text></svg>' +
+          '</div>' +
+          '<h4>Tabel kebenaran</h4><div id="tkRinci"></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  buatTabel("tkRinci", g, false);
+  bunyiKlik();
+}
+
+/* kasus kehidupan sehari-hari */
+function buatKasus(idSakelar, idHasil, label, gerbang, teksBenar, teksSalah, ikonBenar, ikonSalah){
+  var st = { a:0, b:0 };
+  function gambar(){
+    var y = hitungGerbang(gerbang, st.a, st.b);
+    var h = "";
+    h += '<button class="sakelar' + (st.a ? " on" : "") + '" data-k="a"><span class="nama">' + label[0] +
+         '</span><span class="tuas"></span><span class="nilai">' + st.a + '</span></button>';
+    if(gerbang !== "NOT"){
+      h += '<button class="sakelar' + (st.b ? " on" : "") + '" data-k="b"><span class="nama">' + label[1] +
+           '</span><span class="tuas"></span><span class="nilai">' + st.b + '</span></button>';
+    }
+    $(idSakelar).innerHTML = h;
+    $(idSakelar).querySelectorAll(".sakelar").forEach(function(s){
+      s.onclick = function(){ var k = s.dataset.k; st[k] = st[k] ? 0 : 1; bunyi(st[k]?700:340,.08,"square"); gambar(); };
+    });
+    var rumus = gerbang === "NOT" ? ("NOT " + st.a) : (st.a + " " + gerbang + " " + st.b);
+    $(idHasil).innerHTML =
+      '<div style="font-size:1.9rem">' + (y ? ikonBenar : ikonSalah) + '</div>' +
+      '<div style="font-size:1.15rem;color:' + (y ? "var(--nyala)" : "var(--salah)") + '">' + (y ? teksBenar : teksSalah) + '</div>' +
+      '<div style="color:var(--teks-redup);font-weight:600;font-size:.9rem">' + rumus + ' = ' + y + ' (' + (y ? "BENAR" : "SALAH") + ')</div>';
+  }
+  gambar();
+}
+
+/* ===================================================================
+   BAGIAN 6 — [EDIT-3] DAFTAR SOAL
+   Guru dapat menambah/mengubah soal pada dua array di bawah ini.
+   Format: { t: pertanyaan, o: [4 pilihan], j: indeks jawaban benar
+   dimulai dari 0, e: penjelasan yang muncul setelah dijawab }
+   =================================================================== */
+
+/* ---- SOAL TANTANGAN (berbasis situasi) ---- */
+var SOAL_TANTANGAN = [
+  { t:"Jika A=1 dan B=0, berapakah output dari A AND B?", o:["0","1","2","Tidak dapat ditentukan"], j:0,
+    e:"AND menuntut semua masukan bernilai 1. Karena B=0, keluarannya 0." },
+  { t:"Jika A=1 dan B=0, berapakah output dari A OR B?", o:["0","1","10","Bergantung sakelar"], j:1,
+    e:"OR hanya butuh minimal satu masukan bernilai 1. A=1, jadi keluarannya 1." },
+  { t:"Sebuah lift bergerak jika pintu tertutup (1) DAN tombol ditekan (1). Pintu tertutup tetapi tidak ada tombol ditekan. Apa yang terjadi?", o:["Lift bergerak","Lift diam","Lift berbunyi","Pintu terbuka sendiri"], j:1,
+    e:"Syaratnya memakai AND: 1 AND 0 = 0, sehingga lift tetap diam." },
+  { t:"Alarm berbunyi jika sensor gerak ATAU sensor pintu aktif. Sensor gerak=0 dan sensor pintu=1. Alarm?", o:["Mati","Berbunyi","Rusak","Menunggu sensor lain"], j:1,
+    e:"Syaratnya memakai OR: 0 OR 1 = 1, sehingga alarm berbunyi." },
+  { t:"Sensor cahaya bernilai 1 saat terang. Lampu taman = NOT sensor. Saat siang hari, lampu…", o:["Menyala","Mati","Berkedip","Menyala setengah"], j:1,
+    e:"Siang berarti sensor=1. NOT 1 = 0, jadi lampu mati. Inilah cara kerja lampu otomatis." },
+  { t:"Berapa baris yang dimiliki tabel kebenaran dengan 2 masukan?", o:["2 baris","3 baris","4 baris","8 baris"], j:2,
+    e:"Setiap masukan punya 2 kemungkinan, jadi 2 × 2 = 4 kombinasi." },
+  { t:"Ekspresi A AND (NOT B) dengan A=1 dan B=1 menghasilkan…", o:["0","1","2","Salah tulis"], j:0,
+    e:"Kerjakan NOT lebih dulu: NOT 1 = 0. Lalu 1 AND 0 = 0." },
+  { t:"Ekspresi (A OR B) AND (NOT A) dengan A=0 dan B=1 menghasilkan…", o:["0","1","Tidak tentu","Perlu masukan ketiga"], j:1,
+    e:"(0 OR 1) = 1, NOT 0 = 1, lalu 1 AND 1 = 1." },
+  { t:"Mesin ATM mengeluarkan uang jika kartu valid DAN PIN benar DAN saldo cukup. Kartu valid, PIN benar, saldo tidak cukup. Hasilnya?", o:["Uang keluar","Uang tidak keluar","Kartu ditelan","Saldo bertambah"], j:1,
+    e:"Rantai AND mengharuskan semuanya bernilai 1. Satu syarat bernilai 0 membuat keluaran 0." },
+  { t:"Simbol gerbang yang memiliki lingkaran kecil di ujung keluarannya menandakan…", o:["Penguatan sinyal","Pembalikan nilai","Masukan ganda","Tidak ada arti"], j:1,
+    e:"Lingkaran kecil (bubble) melambangkan negasi atau pembalikan nilai, ciri khas gerbang NOT." }
+];
+
+/* ---- SOAL KUIS (20 butir) ---- */
+var SOAL_KUIS = [
+  { t:"Dalam sistem digital, nilai TRUE dilambangkan dengan angka…", o:["1","0","2","-1"], j:0,
+    e:"TRUE = BENAR = ON = 1, menandakan adanya arus listrik." },
+  { t:"Lampu yang sedang mati mewakili nilai logika…", o:["1","0","ON","TRUE"], j:1,
+    e:"Mati berarti tidak ada arus, sehingga nilainya 0 atau FALSE." },
+  { t:"Satuan terkecil data digital yang hanya bernilai 0 atau 1 disebut…", o:["Byte","Bit","Pixel","Hertz"], j:1,
+    e:"Bit berasal dari binary digit, yaitu angka biner 0 atau 1." },
+  { t:"Output gerbang AND bernilai 1 apabila…", o:["Semua input bernilai 1","Salah satu input bernilai 1","Semua input bernilai 0","Input pertama bernilai 1"], j:0,
+    e:"AND bersifat ketat: seluruh masukan wajib bernilai 1." },
+  { t:"Hasil dari 1 AND 0 adalah…", o:["1","0","10","Tidak terdefinisi"], j:1,
+    e:"Ada masukan bernilai 0, sehingga AND menghasilkan 0." },
+  { t:"Output gerbang OR bernilai 0 hanya jika…", o:["Semua input bernilai 0","Semua input bernilai 1","Salah satu input 0","Inputnya tiga buah"], j:0,
+    e:"OR menghasilkan 0 hanya saat tidak ada satu pun masukan bernilai 1." },
+  { t:"Hasil dari 0 OR 1 adalah…", o:["0","1","01","Tidak tentu"], j:1,
+    e:"Minimal satu masukan bernilai 1, dan itu sudah cukup bagi OR." },
+  { t:"Hasil dari NOT 1 adalah…", o:["1","0","2","NOT"], j:1,
+    e:"NOT membalik nilai, sehingga 1 menjadi 0." },
+  { t:"Gerbang logika yang hanya memiliki satu buah masukan adalah…", o:["AND","OR","NOT","Semuanya"], j:2,
+    e:"NOT bekerja pada satu masukan saja karena tugasnya membalik nilai." },
+  { t:"Gerbang NOT disebut juga dengan istilah…", o:["Inverter","Konektor","Resistor","Adaptor"], j:0,
+    e:"Inverter berarti pembalik, sesuai fungsi gerbang NOT." },
+  { t:"Persamaan logika untuk gerbang AND ditulis sebagai…", o:["Y = A + B","Y = A · B","Y = A'","Y = A ⊕ B"], j:1,
+    e:"AND ditulis dengan tanda titik (perkalian logika): Y = A · B." },
+  { t:"Persamaan logika untuk gerbang OR ditulis sebagai…", o:["Y = A + B","Y = A · B","Y = A'","Y = NOT A"], j:0,
+    e:"OR ditulis dengan tanda tambah (penjumlahan logika): Y = A + B." },
+  { t:"Persamaan logika untuk gerbang NOT ditulis sebagai…", o:["Y = A + B","Y = A · B","Y = A'","Y = AB"], j:2,
+    e:"Tanda aksen atau garis di atas huruf menandakan negasi." },
+  { t:"Tabel kebenaran untuk gerbang dengan 3 masukan memiliki… baris", o:["3","6","8","9"], j:2,
+    e:"Jumlah baris = 2 pangkat jumlah masukan, jadi 2³ = 8." },
+  { t:"Perhatikan baris tabel: A=1, B=1, output=1. Baris ini dapat berasal dari gerbang…", o:["Hanya AND","Hanya OR","AND maupun OR","NOT"], j:2,
+    e:"1 AND 1 = 1 dan 1 OR 1 = 1. Pembeda keduanya baru terlihat pada kombinasi lain." },
+  { t:"Simbol gerbang yang berbentuk seperti huruf D adalah…", o:["AND","OR","NOT","XOR"], j:0,
+    e:"AND digambar dengan sisi kiri lurus dan sisi kanan setengah lingkaran, mirip huruf D." },
+  { t:"Pintu otomatis terbuka jika kartu valid AND PIN benar. Kartu valid=1, PIN benar=0. Maka pintu…", o:["Terbuka","Terkunci","Terbuka sebagian","Berbunyi"], j:1,
+    e:"1 AND 0 = 0, sehingga pintu tetap terkunci." },
+  { t:"Alarm = sensor gerak OR sensor pintu. Keduanya bernilai 0. Alarm dalam keadaan…", o:["Aktif","Mati","Berkedip","Rusak"], j:1,
+    e:"0 OR 0 = 0, jadi alarm tidak berbunyi." },
+  { t:"Lampu otomatis menyala ketika hari gelap. Gerbang yang tepat untuk membalik sinyal sensor cahaya adalah…", o:["AND","OR","NOT","Tidak perlu gerbang"], j:2,
+    e:"Sensor bernilai 1 saat terang, sedangkan lampu harus menyala saat gelap, sehingga sinyalnya dibalik dengan NOT." },
+  { t:"Diketahui rangkaian Y = (A AND B) dengan A=1 dan B=1, lalu hasilnya dimasukkan ke gerbang NOT. Nilai akhirnya adalah…", o:["1","0","2","Tidak dapat dihitung"], j:1,
+    e:"1 AND 1 = 1, kemudian NOT 1 = 0." }
+];
+
+/* ===================================================================
+   BAGIAN 7 — MESIN SOAL (dipakai tantangan & kuis)
+   =================================================================== */
+function acakArray(arr){
+  var a = arr.slice();
+  for(var i = a.length - 1; i > 0; i--){
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+/* Mengacak pilihan jawaban sambil tetap menjaga jawaban benar */
+function acakOpsi(soal){
+  var benar = soal.o[soal.j];
+  var opsiBaru = acakArray(soal.o);
+  return { t:soal.t, o:opsiBaru, j:opsiBaru.indexOf(benar), e:soal.e };
+}
+var HURUF = ["A","B","C","D","E"];
+
+/* ---------- TANTANGAN ---------- */
+var tanSoal = [], tanIndeks = 0, tanBenar = 0;
+function mulaiTantangan(){
+  tanSoal = acakArray(SOAL_TANTANGAN).map(acakOpsi);
+  tanIndeks = 0; tanBenar = 0; maju.skorTantangan = 0;
+  $("tanSkor").textContent = "0";
+  gambarTantangan();
+}
+function gambarTantangan(){
+  if(tanIndeks >= tanSoal.length){
+    $("tanIsi").innerHTML =
+      '<div class="soal-kotak hasil"><div style="font-size:2.6rem">🎉</div>' +
+      '<h3>Tantangan selesai!</h3><p>Kamu menjawab benar <b style="color:var(--nyala)">' + tanBenar + '</b> dari ' + tanSoal.length + ' soal.</p>' +
+      '<button class="tbl" onclick="mulaiTantangan()">🔄 Ulangi Tantangan</button> ' +
+      '<button class="tbl garis2" onclick="keHalaman(\'hal-kuis\')">🏆 Lanjut ke Kuis</button></div>';
+    $("tanNomor").textContent = "Selesai";
+    $("tanRel").style.width = "100%";
+    rayakan("Tantangan selesai! 🎉");
+    return;
+  }
+  var s = tanSoal[tanIndeks];
+  $("tanNomor").textContent = "Soal " + (tanIndeks + 1) + " dari " + tanSoal.length;
+  $("tanRel").style.width = (tanIndeks / tanSoal.length * 100) + "%";
+  var h = '<div class="soal-kotak"><p class="soal-teks">' + s.t + '</p><div class="opsi">';
+  s.o.forEach(function(o, i){
+    h += '<button data-i="' + i + '"><span class="huruf">' + HURUF[i] + '</span><span>' + o + '</span></button>';
+  });
+  h += '</div><div class="umpan" id="tanUmpan"></div></div>';
+  $("tanIsi").innerHTML = h;
+  $("tanIsi").querySelectorAll(".opsi button").forEach(function(b){
+    b.onclick = function(){ jawabTantangan(+b.dataset.i); };
+  });
+}
+function jawabTantangan(pilih){
+  var s = tanSoal[tanIndeks];
+  var tombol = $("tanIsi").querySelectorAll(".opsi button");
+  tombol.forEach(function(b, i){
+    b.disabled = true;
+    if(i === s.j) b.classList.add("benar");
+    else if(i === pilih) b.classList.add("salah");
+  });
+  var u = $("tanUmpan");
+  var benar = pilih === s.j;
+  if(benar){ tanBenar++; maju.skorTantangan = tanBenar * 10; bunyiBenar(); }
+  else bunyiSalah();
+  $("tanSkor").textContent = maju.skorTantangan;
+  u.className = "umpan tampil " + (benar ? "ok" : "no");
+  u.innerHTML = (benar ? "✅ <b>BENAR!</b> " : "❌ <b>SALAH.</b> Jawaban yang tepat: <b>" + s.o[s.j] + "</b>. ") +
+                '<span style="font-weight:600">' + s.e + '</span>' +
+                '<div style="margin-top:12px"><button class="tbl" onclick="lanjutTantangan()">Soal Berikutnya →</button></div>';
+  hitungKemajuan();
+}
+function lanjutTantangan(){ tanIndeks++; gambarTantangan(); }
+
+/* ---------- MINI GAME TEBAK OUTPUT ---------- */
+var gameRonde = 0, gameSkor = 0, gameSoal = null;
+var TOTAL_RONDE = 10;   /* jumlah ronde mini game, boleh diubah guru */
+function mulaiGame(){
+  gameRonde = 0; gameSkor = 0; maju.skorGame = 0;
+  ronde();
+}
+function ronde(){
+  if(gameRonde >= TOTAL_RONDE){
+    $("gameIsi").innerHTML =
+      '<div class="soal-kotak hasil"><div style="font-size:2.6rem">🏁</div>' +
+      '<h3>Permainan selesai!</h3><div class="nilai-besar">' + gameSkor + '</div>' +
+      '<p>Skor akhir dari ' + (TOTAL_RONDE * 10) + ' poin.</p>' +
+      '<button class="tbl" onclick="mulaiGame()">🎮 Main Lagi</button></div>';
+    if(gameSkor >= 70) rayakan("Hebat! Skor " + gameSkor + " 🎮");
+    return;
+  }
+  var gerbang = ["AND","OR","NOT"][Math.floor(Math.random()*3)];
+  var a = Math.random() < .5 ? 0 : 1;
+  var b = gerbang === "NOT" ? 0 : (Math.random() < .5 ? 0 : 1);
+  gameSoal = { gerbang:gerbang, a:a, b:b, y:hitungGerbang(gerbang, a, b) };
+  $("gameIsi").innerHTML =
+    '<div class="soal-kotak">' +
+      '<div class="bar-soal"><span>Ronde ' + (gameRonde + 1) + ' / ' + TOTAL_RONDE + '</span>' +
+      '<span class="rel"><i style="width:' + (gameRonde / TOTAL_RONDE * 100) + '%"></i></span>' +
+      '<span>Skor: <b style="color:var(--nyala)">' + gameSkor + '</b></span></div>' +
+      '<div class="kisi tiga" style="margin:12px 0">' +
+        '<div class="kotak" style="text-align:center"><span style="color:var(--teks-redup);font-size:.8rem;font-weight:800">INPUT A</span><div style="font-size:2.2rem;font-weight:800;color:' + (a ? "var(--nyala)" : "var(--teks-redup)") + '">' + a + '</div></div>' +
+        (gerbang === "NOT"
+          ? '<div class="kotak" style="text-align:center"><span style="color:var(--teks-redup);font-size:.8rem;font-weight:800">INPUT B</span><div style="font-size:1.4rem;font-weight:800;color:var(--teks-redup)">—</div></div>'
+          : '<div class="kotak" style="text-align:center"><span style="color:var(--teks-redup);font-size:.8rem;font-weight:800">INPUT B</span><div style="font-size:2.2rem;font-weight:800;color:' + (b ? "var(--nyala)" : "var(--teks-redup)") + '">' + b + '</div></div>') +
+        '<div class="kotak" style="text-align:center;border-color:var(--ungu)"><span style="color:var(--teks-redup);font-size:.8rem;font-weight:800">GERBANG</span><div style="font-size:1.8rem;font-weight:800;color:var(--ungu)">' + gerbang + '</div></div>' +
+      '</div>' +
+      '<p class="soal-teks" style="text-align:center">Berapakah nilai OUTPUT?</p>' +
+      '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">' +
+        '<button class="tbl garis2" style="font-size:1.6rem;padding:14px 44px" onclick="jawabGame(0)">0</button>' +
+        '<button class="tbl garis2" style="font-size:1.6rem;padding:14px 44px" onclick="jawabGame(1)">1</button>' +
+      '</div>' +
+      '<div class="umpan" id="gameUmpan"></div>' +
+    '</div>';
+}
+function jawabGame(pilih){
+  var benar = pilih === gameSoal.y;
+  if(benar){ gameSkor += 10; maju.skorGame = gameSkor; bunyiBenar(); } else bunyiSalah();
+  var u = $("gameUmpan");
+  u.className = "umpan tampil " + (benar ? "ok" : "no");
+  var rumus = gameSoal.gerbang === "NOT" ? ("NOT " + gameSoal.a) : (gameSoal.a + " " + gameSoal.gerbang + " " + gameSoal.b);
+  u.innerHTML = (benar ? "✅ <b>BENAR! +10 poin.</b> " : "❌ <b>SALAH.</b> ") +
+    '<span style="font-weight:600">' + rumus + " = <b>" + gameSoal.y + "</b>. " + penjelasanOtomatis(gameSoal.gerbang, gameSoal.a, gameSoal.b, gameSoal.y) + '</span>' +
+    '<div style="margin-top:12px"><button class="tbl" onclick="lanjutRonde()">Ronde Berikutnya →</button></div>';
+  hitungKemajuan();
+}
+function lanjutRonde(){ gameRonde++; ronde(); }
+
+/* ---------- KUIS 20 SOAL ---------- */
+var kuisSoal = [], kuisIndeks = 0, kuisBenar = 0, kuisSalah = 0;
+function mulaiKuis(){
+  kuisSoal = acakArray(SOAL_KUIS).map(acakOpsi);
+  kuisIndeks = 0; kuisBenar = 0; kuisSalah = 0;
+  $("kuisMulai").style.display = "none";
+  $("kuisHasil").style.display = "none";
+  $("kuisJalan").style.display = "block";
+  gambarKuis();
+}
+function gambarKuis(){
+  if(kuisIndeks >= kuisSoal.length){ selesaiKuis(); return; }
+  var s = kuisSoal[kuisIndeks];
+  var h = '<div class="bar-soal"><span>Soal ' + (kuisIndeks + 1) + " / " + kuisSoal.length + '</span>' +
+          '<span class="rel"><i style="width:' + (kuisIndeks / kuisSoal.length * 100) + '%"></i></span>' +
+          '<span>✔ <b style="color:var(--nyala)">' + kuisBenar + '</b> &nbsp; ✖ <b style="color:var(--salah)">' + kuisSalah + '</b></span></div>' +
+          '<div class="soal-kotak"><p class="soal-teks">' + s.t + '</p><div class="opsi">';
+  s.o.forEach(function(o, i){
+    h += '<button data-i="' + i + '"><span class="huruf">' + HURUF[i] + '</span><span>' + o + '</span></button>';
+  });
+  h += '</div><div class="umpan" id="kuisUmpan"></div></div>';
+  $("kuisJalan").innerHTML = h;
+  $("kuisJalan").querySelectorAll(".opsi button").forEach(function(b){
+    b.onclick = function(){ jawabKuis(+b.dataset.i); };
+  });
+}
+function jawabKuis(pilih){
+  var s = kuisSoal[kuisIndeks];
+  var benar = pilih === s.j;
+  if(benar){ kuisBenar++; bunyiBenar(); } else { kuisSalah++; bunyiSalah(); }
+  $("kuisJalan").querySelectorAll(".opsi button").forEach(function(b, i){
+    b.disabled = true;
+    if(i === s.j) b.classList.add("benar");
+    else if(i === pilih) b.classList.add("salah");
+  });
+  var u = $("kuisUmpan");
+  u.className = "umpan tampil " + (benar ? "ok" : "no");
+  u.innerHTML = (benar ? "✅ <b>BENAR!</b> " : "❌ <b>SALAH.</b> Jawaban benar: <b>" + s.o[s.j] + "</b>. ") +
+    '<span style="font-weight:600">' + s.e + '</span>' +
+    '<div style="margin-top:12px"><button class="tbl" onclick="lanjutKuis()">' +
+    (kuisIndeks === kuisSoal.length - 1 ? "Lihat Hasil 🏁" : "Soal Berikutnya →") + '</button></div>';
+}
+function lanjutKuis(){ kuisIndeks++; gambarKuis(); }
+
+/* Penilaian akhir: nilai 0-100 beserta predikat */
+function selesaiKuis(){
+  var total = kuisSoal.length;
+  var nilai = Math.round(kuisBenar / total * 100);
+  maju.nilaiKuis = nilai;
+  hitungKemajuan();
+  var predikat, pesan, ikon;
+  if(nilai >= 90){ predikat = "🏆 Sangat Baik"; ikon = "🏆"; pesan = "Luar biasa! Kamu sudah menguasai gerbang logika dengan sangat baik. Coba bantu temanmu yang masih bingung."; }
+  else if(nilai >= 80){ predikat = "⭐ Baik"; ikon = "⭐"; pesan = "Kerja bagus! Pemahamanmu sudah kuat. Ulangi bagian yang masih keliru agar makin mantap."; }
+  else if(nilai >= 70){ predikat = "👍 Cukup"; ikon = "👍"; pesan = "Cukup baik. Buka lagi Laboratorium dan mainkan semua kombinasi masukannya, lalu coba kuis ini sekali lagi."; }
+  else { predikat = "📚 Perlu Belajar Lagi"; ikon = "📚"; pesan = "Jangan berkecil hati. Pelajari ulang bagian Materi dan Tabel Kebenaran pelan-pelan, lalu ulangi kuisnya. Kamu pasti bisa."; }
+
+  $("kuisJalan").style.display = "none";
+  $("kuisHasil").style.display = "block";
+  $("kuisHasil").innerHTML =
+    '<div class="hasil"><div style="font-size:3rem">' + ikon + '</div>' +
+      '<p style="color:var(--teks-redup);font-weight:800;margin:0">NILAI AKHIR</p>' +
+      '<div class="nilai-besar">' + nilai + '</div>' +
+      '<div class="predikat">' + predikat + '</div>' +
+      '<div class="ringkas">' +
+        '<div><b style="color:var(--nyala)">' + kuisBenar + '</b><span>JAWABAN BENAR</span></div>' +
+        '<div><b style="color:var(--salah)">' + kuisSalah + '</b><span>JAWABAN SALAH</span></div>' +
+        '<div><b>' + nilai + '%</b><span>PERSENTASE</span></div>' +
+        '<div><b>' + total + '</b><span>TOTAL SOAL</span></div>' +
+      '</div>' +
+      '<p style="max-width:52ch;margin:0 auto 20px">' + pesan + '</p>' +
+      '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+        '<button class="tbl" onclick="mulaiKuis()">🔄 Ulangi Evaluasi</button>' +
+        '<button class="tbl kuning" onclick="keHalaman(\'hal-materi\')">📖 Pelajari Lagi</button>' +
+        '<button class="tbl garis2" onclick="keHalaman(\'hal-beranda\')">🏠 Kembali ke Beranda</button>' +
+      '</div></div>';
+  if(nilai >= 70) rayakan("Selamat! Nilaimu " + nilai + " 🎉");
+}
+
+/* ===================================================================
+   BAGIAN 8 — ANIMASI PERAYAAN (KONFETI)
+   =================================================================== */
+function rayakan(pesan){
+  var kotak = $("kotakSelamat");
+  kotak.textContent = pesan || "Selamat! 🎉";
+  kotak.classList.add("tampil");
+  setTimeout(function(){ kotak.classList.remove("tampil"); }, 2600);
+  var warna = ["#34E27A","#38D9F0","#FFC043","#A78BFA","#FF6B81"];
+  var wadah = $("konfeti");
+  for(var i = 0; i < 46; i++){
+    var d = document.createElement("div");
+    d.className = "kf";
+    d.style.left = Math.random() * 100 + "%";
+    d.style.top = "-20px";
+    d.style.background = warna[Math.floor(Math.random() * warna.length)];
+    d.style.animationDuration = (1.6 + Math.random() * 1.4) + "s";
+    d.style.animationDelay = (Math.random() * .5) + "s";
+    wadah.appendChild(d);
+    (function(el){ setTimeout(function(){ el.remove(); }, 3600); })(d);
+  }
+  bunyi(880,.12); setTimeout(function(){ bunyi(1180,.2); }, 130);
+}
+
+/* ===================================================================
+   BAGIAN 9 — PENYALAAN AWAL APLIKASI
+   =================================================================== */
+var simTabel;
+(function mulai(){
+  bangunMenu();
+  keHalaman("hal-beranda");
+
+  /* deretan LED animasi di halaman pembuka */
+  var papan = $("papanLed");
+  var pola = [1,0,1,1,0,1,0,1];
+  pola.forEach(function(v, i){
+    var d = document.createElement("div");
+    d.className = "led-demo" + (v ? " on" : "");
+    d.textContent = v;
+    d.style.animationDelay = (i * .18) + "s";
+    papan.appendChild(d);
+  });
+  setInterval(function(){
+    var anak = papan.children;
+    for(var i = 0; i < anak.length; i++){
+      var v = Math.random() < .55 ? 1 : 0;
+      anak[i].textContent = v;
+      anak[i].classList.toggle("on", v === 1);
+    }
+  }, 1400);
+
+  /* simulator pada materi */
+  buatSimulator("simAnd", { gerbang:"AND" });
+  buatSimulator("simOr",  { gerbang:"OR"  });
+  buatSimulator("simNot", { gerbang:"NOT" });
+  buatTabel("tkAnd", "AND", false);
+  buatTabel("tkOr",  "OR",  false);
+  buatTabel("tkNot", "NOT", false);
+
+  /* simulator pada halaman khusus AND / OR / NOT */
+  buatSimulator("simAnd2", { gerbang:"AND" });
+  buatSimulator("simOr2",  { gerbang:"OR"  });
+  buatSimulator("simNot2", { gerbang:"NOT" });
+  buatTabel("tkAnd2", "AND", false);
+  buatTabel("tkOr2",  "OR",  false);
+  buatTabel("tkNot2", "NOT", false);
+
+  /* laboratorium: gerbang dapat diganti */
+  buatSimulator("simLab", { gerbang:"AND", ganti:true });
+
+  /* tabel kebenaran interaktif */
+  simTabel = buatSimulator("simTabel", { gerbang:"AND", ganti:true });
+  buatTabel("tabelAnd", "AND", true);
+  buatTabel("tabelOr",  "OR",  true);
+  buatTabel("tabelNot", "NOT", true);
+
+  /* kartu gerbang */
+  bangunKartuGerbang();
+
+  /* kasus kehidupan sehari-hari */
+  buatKasus("kasus1Sakelar","kasus1Hasil",["Kartu Valid","PIN Benar"],"AND","PINTU TERBUKA","PINTU TERKUNCI","🔓","🔒");
+  buatKasus("kasus2Sakelar","kasus2Hasil",["Sensor Gerak","Sensor Pintu"],"OR","ALARM AKTIF","ALARM MATI","🚨","😴");
+  buatKasus("kasus3Sakelar","kasus3Hasil",["Sensor Cahaya (1 = terang)",""],"NOT","LAMPU MENYALA","LAMPU MATI","💡","🌑");
+
+  /* latihan */
+  mulaiTantangan();
+  mulaiGame();
+  hitungKemajuan();
+})();
+</script>
+</body>
+</html>
