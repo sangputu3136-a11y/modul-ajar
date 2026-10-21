@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Membuat MPI — Canva, AI, dan Lumi</title>
+<style>
+:root{--ink:#17223b;--muted:#64748b;--paper:#f5f7ff;--card:#fff;--purple:#6558d3;--blue:#2477d4;--teal:#0d9488;--orange:#f59e0b;--line:#e4e8f2;--shadow:0 12px 32px #27345c12}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}.sidebar{background:#151b35;color:#eef2ff;padding:24px 17px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;align-items:center;gap:12px;margin:0 7px 22px}.brand-icon{width:42px;height:42px;display:grid;place-items:center;background:linear-gradient(135deg,#9b8cff,#46d6c6);border-radius:14px;font-size:22px}.brand strong{display:block;font-size:15px}.brand small{color:#aab4d5}.nav-label{font-size:11px;letter-spacing:1.5px;color:#98a4ca;margin:20px 10px 7px}.nav button{width:100%;border:0;text-align:left;color:#dce3ff;background:transparent;border-radius:11px;padding:10px 12px;margin:2px 0;display:flex;gap:10px;align-items:center}.nav button:hover,.nav button.active{background:#30395f;color:white}.nav .num{font-size:11px;color:#a9b6e6;min-width:24px}.side-note{border:1px solid #394263;background:#202846;border-radius:14px;padding:13px;margin:24px 4px;font-size:12px;color:#c4cce6}.main{min-width:0}.topbar{height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--line);background:#ffffffd9;backdrop-filter:blur(12px);position:sticky;top:0;z-index:4}.crumb{font-size:13px;color:var(--muted)}.top-actions{display:flex;gap:9px;align-items:center}.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:700;font-size:13px}.btn.primary{background:var(--purple);color:white}.btn.soft{background:#eeecff;color:#4d42b6}.btn.outline{background:white;border:1px solid var(--line);color:var(--ink)}.menu-toggle{display:none}.content{max-width:1150px;margin:auto;padding:34px 34px 80px}.hero{position:relative;overflow:hidden;background:linear-gradient(120deg,#262d58,#5548b9 58%,#168e9a);border-radius:25px;padding:40px;color:white;box-shadow:var(--shadow)}.hero:after{content:"✦";position:absolute;font-size:230px;line-height:1;right:30px;top:-28px;color:#ffffff12}.eyebrow{font-size:12px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:#b8f4ec}.hero h1{font-size:clamp(30px,4vw,48px);line-height:1.12;max-width:720px;margin:12px 0}.hero p{max-width:690px;color:#e4e8ff;margin:0 0 24px}.pills{display:flex;flex-wrap:wrap;gap:8px}.pill{border:1px solid #ffffff48;background:#ffffff12;padding:6px 10px;border-radius:999px;font-size:12px}.hero .btn{background:white;color:#443b9d}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 36px}.stat,.card,.lesson,.callout,.step-card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:var(--shadow)}.stat{display:flex;align-items:center;gap:13px}.stat-icon{width:43px;height:43px;border-radius:13px;display:grid;place-items:center;font-size:21px;background:#eeecff}.stat b{font-size:19px;display:block}.stat small{color:var(--muted)}section{scroll-margin-top:90px;margin-top:36px}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:17px}.section-head h2{font-size:27px;line-height:1.2;margin:4px 0}.section-head p{margin:0;color:var(--muted);max-width:650px}.kicker{color:var(--purple);font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.tool-card{padding:0;overflow:hidden}.tool-banner{padding:22px;color:white;min-height:115px;display:flex;justify-content:space-between;align-items:flex-start}.tool-banner span{font-size:37px}.canva{background:linear-gradient(135deg,#6c5ce7,#c05bd8)}.ai{background:linear-gradient(135deg,#117c8b,#2ab6a2)}.lumi{background:linear-gradient(135deg,#e58c28,#e45b6a)}.tool-body{padding:19px}.tool-body h3{margin:0 0 7px}.muted{color:var(--muted)}.small{font-size:13px}.tag{display:inline-block;padding:4px 8px;border-radius:7px;background:#f0efff;color:#5548b9;font-size:11px;font-weight:800;margin:3px 3px 3px 0}.checklist{display:grid;gap:10px}.checkitem{display:flex;gap:11px;align-items:flex-start;border:1px solid var(--line);padding:12px;border-radius:12px;background:#fff}.checkitem input{margin-top:5px;accent-color:var(--purple);width:17px;height:17px}.checkitem.done span{text-decoration:line-through;color:#8790a5}.progress-wrap{background:#e7eaf4;height:8px;border-radius:999px;overflow:hidden;margin:12px 0}.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .2s}.progress-label{font-size:12px;color:var(--muted)}.steps{display:grid;gap:13px}.step-card{display:grid;grid-template-columns:52px minmax(0,1fr);gap:15px}.step-number{width:45px;height:45px;border-radius:14px;background:#eeecff;color:#5146b5;display:grid;place-items:center;font-weight:900;font-size:18px}.step-card h3{margin:0 0 5px}.step-card p{margin:0 0 9px;color:var(--muted)}.code{background:#171d37;color:#e2e8ff;border-radius:12px;padding:14px;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}.copyrow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:9px}.callout{border-left:4px solid var(--teal);background:#f0fdfa;box-shadow:none}.callout.warning{border-color:var(--orange);background:#fffbeb}.callout strong{display:block;margin-bottom:4px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tabs button{border:1px solid var(--line);background:#fff;padding:9px 13px;border-radius:10px;color:var(--muted);font-weight:700}.tabs button.active{background:#262d58;color:#fff;border-color:#262d58}.tab-panel{display:none}.tab-panel.active{display:block}.lesson{box-shadow:none}.lesson h3{margin:0 0 8px}.lesson ul{padding-left:20px}.lesson li{margin:6px 0}.prompt-box textarea{width:100%;min-height:155px;padding:13px;border:1px solid #d9dff0;border-radius:12px;resize:vertical;background:#fbfcff}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:800}.field input,.field select,.field textarea{width:100%;padding:11px;border:1px solid #d9dff0;border-radius:10px;background:#fff}.quiz-question{padding:18px;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;background:#fff}.quiz-question p{font-weight:800;margin:0 0 10px}.option{display:flex;gap:9px;padding:8px 10px;border-radius:9px;margin:4px 0;background:#f8f9fd;cursor:pointer}.option input{accent-color:var(--purple)}.feedback{font-size:13px;margin-top:9px;font-weight:700}.good{color:#087e68}.bad{color:#be4b37}.rubric{width:100%;border-collapse:collapse;font-size:13px}.rubric th,.rubric td{text-align:left;padding:10px;border-bottom:1px solid var(--line);vertical-align:top}.rubric th{background:#f4f5fc}.footer{margin-top:45px;padding:22px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.hidden{display:none!important}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:-300px;z-index:8;width:280px;transition:left .25s;box-shadow:0 0 0 100vmax #10152c00}.sidebar.open{left:0;box-shadow:0 0 0 100vmax #10152c66}.menu-toggle{display:inline-flex}.topbar{padding:0 16px}.content{padding:22px 16px 60px}.hero{padding:28px}.stats{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.section-head{align-items:flex-start;flex-direction:column}.hero:after{right:-20px;font-size:150px}.step-card{grid-template-columns:42px 1fr}.step-number{width:38px;height:38px}}
+@media print{.sidebar,.topbar,.top-actions,.no-print{display:none!important}.app{display:block}.content{max-width:none;padding:0}.hero{background:#fff;color:#111;border:1px solid #ccc;box-shadow:none}.hero p,.eyebrow{color:#333}.pill{border-color:#aaa}.card,.lesson,.step-card,.stat{box-shadow:none;break-inside:avoid}body{background:#fff}.tab-panel{display:block!important}section{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-icon">✦</div><div><strong>MPI Studio</strong><small>Canva • AI • Lumi</small></div></div>
+  <div class="nav-label">MULAI BELAJAR</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-target="beranda"><span class="num">00</span> Beranda</button>
+    <button data-target="peta"><span class="num">01</span> Peta Pembelajaran</button>
+    <button data-target="konsep"><span class="num">02</span> Mengenal MPI</button>
+    <button data-target="canva"><span class="num">03</span> Desain di Canva</button>
+    <button data-target="ai"><span class="num">04</span> AI untuk Guru</button>
+    <button data-target="lumi"><span class="num">05</span> Interaktivitas Lumi</button>
+    <button data-target="proyek"><span class="num">06</span> Proyek Praktik</button>
+    <button data-target="evaluasi"><span class="num">07</span> Evaluasi & Rubrik</button>
+    <button data-target="referensi"><span class="num">08</span> Referensi & Etika</button>
+  </nav>
+  <div class="side-note"><strong>🎯 Target akhir</strong><br>Menghasilkan satu prototipe MPI yang terstruktur, menarik, interaktif, dan dapat dibagikan kepada peserta didik.</div>
+  <div class="side-note">💡 <strong>Tips:</strong> centang setiap langkah yang sudah selesai. Progres tersimpan selama halaman ini tetap terbuka.</div>
+</aside>
+<main class="main">
+  <header class="topbar"><div style="display:flex;align-items:center;gap:12px"><button class="btn outline menu-toggle" id="menuToggle">☰</button><div class="crumb">Bahan Ajar / <strong id="crumbCurrent">Beranda</strong></div></div><div class="top-actions"><button class="btn soft" onclick="window.print()">⤓ Cetak / PDF</button><button class="btn primary" onclick="document.getElementById('proyek').scrollIntoView()">Mulai proyek ↗</button></div></header>
+  <div class="content">
+    <section id="beranda" style="margin-top:0">
+      <div class="hero">
+        <div class="eyebrow">PANDUAN PRAKTIS UNTUK PENDIDIK</div>
+        <h1>Membangun Media Pembelajaran Interaktif dengan <span style="color:#8ff3e4">Canva + AI + Lumi</span></h1>
+        <p>Bahan ajar digital langkah demi langkah untuk merancang pengalaman belajar yang bukan hanya menarik dilihat, tetapi juga mengajak peserta didik mengeksplorasi, menjawab, mencoba, dan merefleksikan pembelajaran.</p>
+        <div class="pills"><span class="pill">🎨 Desain visual</span><span class="pill">🤖 Bantuan AI</span><span class="pill">🧩 Aktivitas interaktif</span><span class="pill">📱 Responsif</span></div>
+        <div style="margin-top:24px"><button class="btn" onclick="document.getElementById('peta').scrollIntoView()">Jelajahi modul ↓</button></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-icon">🧭</div><div><b>4 tahap</b><small>Rancang hingga publikasi</small></div></div>
+        <div class="stat"><div class="stat-icon">🛠️</div><div><b>1 proyek</b><small>MPI mini siap diuji</small></div></div>
+        <div class="stat"><div class="stat-icon">✅</div><div><b>Checklist</b><small>Pantau progres belajar</small></div></div>
+      </div>
+    </section>
+
+    <section id="peta">
+      <div class="section-head"><div><div class="kicker">01 / Peta pembelajaran</div><h2>Jalur dari ide menjadi MPI</h2><p>Ikuti urutan berikut. Anda boleh kembali ke tahap sebelumnya untuk memperbaiki isi atau desain.</p></div></div>
+      <div class="grid2">
+        <div class="step-card"><div class="step-number">1</div><div><h3>Rencanakan pembelajaran</h3><p>Tetapkan tujuan, profil peserta didik, materi inti, dan bukti keberhasilan.</p><span class="tag">Tujuan</span><span class="tag">Alur</span></div></div>
+        <div class="step-card"><div class="step-number">2</div><div><h3>Bangun aset visual di Canva</h3><p>Buat sampul, ilustrasi, ikon, infografik, dan tata letak yang konsisten.</p><span class="tag">Desain</span><span class="tag">Aset</span></div></div>
+        <div class="step-card"><div class="step-number">3</div><div><h3>Gunakan AI sebagai rekan kerja</h3><p>Kembangkan contoh, pertanyaan, skenario, diferensiasi, dan umpan balik; lalu verifikasi.</p><span class="tag">Draf</span><span class="tag">Validasi</span></div></div>
+        <div class="step-card"><div class="step-number">4</div><div><h3>Rakit interaksi di Lumi</h3><p>Susun halaman H5P, tambahkan pertanyaan, uji navigasi, lalu bagikan atau ekspor sesuai kebutuhan.</p><span class="tag">H5P</span><span class="tag">Uji coba</span></div></div>
+      </div>
+      <div class="callout" style="margin-top:15px"><strong>Hasil belajar yang diharapkan</strong>Guru dapat menyusun storyboard, menghasilkan aset visual, menggunakan AI secara kritis, membuat setidaknya satu aktivitas interaktif, serta mengevaluasi kualitas prototipe MPI.</div>
+    </section>
+
+    <section id="konsep">
+      <div class="section-head"><div><div class="kicker">02 / Fondasi</div><h2>Apa itu MPI?</h2><p>Media Pembelajaran Interaktif menggabungkan materi, visual, navigasi, aktivitas, dan umpan balik agar peserta didik aktif membangun pemahaman.</p></div></div>
+      <div class="grid3">
+        <article class="card"><div style="font-size:28px">📚</div><h3>Konten bermakna</h3><p class="muted small">Materi akurat, sesuai tujuan, menggunakan contoh dekat dengan kehidupan peserta didik.</p></article>
+        <article class="card"><div style="font-size:28px">🖱️</div><h3>Interaksi nyata</h3><p class="muted small">Klik, pilih, seret, jawab, eksplorasi, atau ambil keputusan—bukan sekadar halaman bergerak.</p></article>
+        <article class="card"><div style="font-size:28px">💬</div><h3>Umpan balik</h3><p class="muted small">Peserta didik mengetahui alasan jawaban tepat atau perlu diperbaiki, lalu mencoba lagi.</p></article>
+      </div>
+      <div class="section-head" style="margin-top:25px"><div><h2>Contoh struktur MPI</h2><p>Gunakan struktur sederhana berikut untuk satu topik pembelajaran.</p></div></div>
+      <div class="grid2">
+        <div class="lesson"><h3>🗂️ Struktur halaman</h3><ol><li>Sampul dan identitas pembelajaran</li><li>Tujuan dan petunjuk penggunaan</li><li>Pemantik atau masalah kontekstual</li><li>Materi ringkas dengan ilustrasi</li><li>Simulasi atau latihan interaktif</li><li>Kuis dengan umpan balik</li><li>Refleksi, rangkuman, dan tindak lanjut</li></ol></div>
+        <div class="lesson"><h3>🧠 Prinsip desain pembelajaran</h3><ul><li><b>Fokus:</b> satu layar untuk satu gagasan utama.</li><li><b>Bertahap:</b> dari contoh konkret menuju konsep.</li><li><b>Aktif:</b> peserta didik melakukan sesuatu secara bermakna.</li><li><b>Terukur:</b> setiap aktivitas berkaitan dengan tujuan belajar.</li><li><b>Aksesibel:</b> teks terbaca, kontras cukup, instruksi jelas.</li></ul></div>
+      </div>
+    </section>
+
+    <section id="canva">
+      <div class="section-head"><div><div class="kicker">03 / Tahap desain</div><h2>Canva: membangun identitas visual</h2><p>Gunakan Canva untuk membuat aset visual dan rancangan layar. Canva bukan pengganti evaluasi pembelajaran atau semua fitur interaktif H5P.</p></div><a class="btn soft" href="https://www.canva.com/" target="_blank" rel="noopener">Buka Canva ↗</a></div>
+      <div class="grid2">
+        <article class="card tool-card"><div class="tool-banner canva"><div><b>CANVA</b><div class="small">Visual & tata letak</div></div><span>🎨</span></div><div class="tool-body"><h3>Yang dibuat di Canva</h3><p class="muted small">Sampul, ikon, diagram, ilustrasi, infografik, latar, dan aset gambar untuk dimasukkan ke materi.</p><span class="tag">Branding</span><span class="tag">Infografik</span><span class="tag">Presentasi</span></div></article>
+        <article class="card"><h3>Checklist desain yang baik</h3><div class="checklist" id="canvaChecks">
+          <label class="checkitem"><input type="checkbox"><span>Gunakan maksimal 2 jenis huruf utama.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Tentukan 2–4 warna yang konsisten.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Pilih gambar yang mendukung isi, bukan sekadar dekorasi.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Pastikan teks kontras dan terbaca pada ponsel.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Ekspor aset sesuai kebutuhan, misalnya PNG atau JPG.</span></label>
+        </div></article>
+      </div>
+      <div class="steps" style="margin-top:15px">
+        <div class="step-card"><div class="step-number">1</div><div><h3>Buat kanvas dan sistem desain</h3><p>Pilih presentasi atau ukuran khusus sesuai media. Tetapkan warna, font, gaya ikon, margin, dan format judul.</p><div class="code">Contoh gaya:
+Warna utama: ungu tua
+Warna pendamping: toska
+Latar: putih / abu sangat muda
+Judul: singkat dan aktif
+Isi: poin pendek + contoh visual</div></div></div>
+        <div class="step-card"><div class="step-number">2</div><div><h3>Desain satu layar contoh</h3><p>Buat halaman materi dengan judul, satu konsep, satu ilustrasi, satu contoh, dan satu pertanyaan pemantik. Gandakan halaman agar konsisten.</p></div></div>
+        <div class="step-card"><div class="step-number">3</div><div><h3>Ekspor dan rapikan aset</h3><p>Unduh gambar yang diperlukan. Beri nama file yang mudah dikenali, misalnya <code>sampul_mpi.png</code> atau <code>diagram_alur.png</code>. Periksa lisensi dan hak penggunaan aset.</p></div></div>
+      </div>
+      <div class="callout warning" style="margin-top:15px"><strong>Catatan penting</strong>Animasi atau tautan dalam desain Canva tidak otomatis berubah menjadi aktivitas H5P saat gambar diimpor ke Lumi. Untuk soal yang bisa dijawab, skor, dan umpan balik, buat interaksinya di Lumi/H5P.</div>
+    </section>
+
+    <section id="ai">
+      <div class="section-head"><div><div class="kicker">04 / Tahap pengembangan konten</div><h2>AI: mempercepat proses, bukan menggantikan guru</h2><p>AI dapat membantu menyusun draf. Guru tetap bertanggung jawab atas kebenaran materi, kesesuaian kurikulum, bahasa, keamanan, dan kualitas asesmen.</p></div></div>
+      <div class="grid2">
+        <article class="card tool-card"><div class="tool-banner ai"><div><b>AI GENERATIF</b><div class="small">Ide • draf • umpan balik</div></div><span>🤖</span></div><div class="tool-body"><h3>Gunakan untuk</h3><ul class="small"><li>Merumuskan tujuan belajar dan storyboard.</li><li>Menyusun contoh, analogi, dan skenario.</li><li>Membuat bank soal beserta alasan jawaban.</li><li>Mengadaptasi bahasa untuk tingkat peserta didik.</li><li>Membuat alternatif kegiatan remedial dan pengayaan.</li></ul></div></article>
+        <article class="card"><h3>Alur kerja AI yang aman</h3><div class="steps"><div><b>1. Beri konteks</b><div class="muted small">Kelas, mata pelajaran, tujuan, durasi, dan prasyarat.</div></div><div><b>2. Minta keluaran terstruktur</b><div class="muted small">Tabel storyboard, soal, kunci, pembahasan, dan indikator.</div></div><div><b>3. Verifikasi</b><div class="muted small">Cocokkan dengan sumber tepercaya dan kurikulum.</div></div><div><b>4. Revisi dan uji</b><div class="muted small">Periksa bias, bahasa, aksesibilitas, dan ketepatan soal.</div></div></div></article>
+      </div>
+      <div class="section-head" style="margin-top:24px"><div><h2>Generator prompt untuk guru</h2><p>Isi konteks dasar, lalu buat prompt yang bisa disalin ke alat AI pilihan Anda.</p></div></div>
+      <div class="card prompt-box">
+        <div class="grid2">
+          <div class="field"><label for="subject">Mata pelajaran / topik</label><input id="subject" value="Informatika — Berpikir Komputasional"></div>
+          <div class="field"><label for="grade">Kelas / jenjang</label><input id="grade" value="Kelas VIII SMP"></div>
+          <div class="field"><label for="goal">Tujuan pembelajaran</label><input id="goal" value="Peserta didik mampu menguraikan masalah dan merancang langkah solusi sederhana."></div>
+          <div class="field"><label for="duration">Durasi</label><select id="duration"><option>1 pertemuan (2–3 JP)</option><option>2 pertemuan</option><option>3–5 pertemuan</option></select></div>
+        </div>
+        <button class="btn primary" id="makePrompt">Buat prompt</button>
+        <div class="field"><label for="promptOutput">Prompt siap salin</label><textarea id="promptOutput" readonly>Anda adalah perancang pembelajaran dan ahli materi. Bantu saya menyusun storyboard MPI yang akurat, menarik, dan sesuai usia peserta didik.</textarea></div>
+        <button class="btn soft" id="copyPrompt">Salin prompt</button><span id="copyStatus" class="small muted" aria-live="polite"></span>
+      </div>
+      <div class="callout" style="margin-top:15px"><strong>Contoh instruksi AI yang baik</strong>“Buat 5 soal pilihan ganda tentang [topik] untuk [kelas]. Sertakan indikator, kunci, alasan jawaban benar, alasan opsi lain kurang tepat, tingkat kesulitan, dan sumber konsep yang perlu diverifikasi. Hindari soal ambigu dan gunakan konteks yang dekat dengan kehidupan peserta didik.”</div>
+    </section>
+
+    <section id="lumi">
+      <div class="section-head"><div><div class="kicker">05 / Tahap interaktivitas</div><h2>Lumi: merakit aktivitas H5P</h2><p>Lumi memungkinkan guru membuat konten berbasis H5P. Jenis aktivitas dan opsi ekspor bergantung pada versi aplikasi dan format yang dipilih.</p></div><a class="btn soft" href="https://lumi.education/" target="_blank" rel="noopener">Buka Lumi ↗</a></div>
+      <div class="grid2">
+        <article class="card tool-card"><div class="tool-banner lumi"><div><b>LUMI / H5P</b><div class="small">Aktivitas & umpan balik</div></div><span>🧩</span></div><div class="tool-body"><h3>Aktivitas yang dapat dipertimbangkan</h3><ul class="small"><li><b>Course Presentation:</b> materi dan interaksi dalam rangkaian slide.</li><li><b>Multiple Choice:</b> pilihan ganda dengan umpan balik.</li><li><b>Drag and Drop:</b> mengelompokkan atau mencocokkan objek.</li><li><b>Question Set:</b> rangkaian beberapa pertanyaan.</li><li><b>Interactive Video:</b> video dengan jeda pertanyaan.</li></ul></div></article>
+        <article class="card"><h3>Alur dasar di Lumi</h3><ol><li>Buka Lumi dan buat konten baru.</li><li>Pilih tipe konten H5P yang sesuai tujuan.</li><li>Masukkan teks, gambar, pertanyaan, jawaban, dan umpan balik.</li><li>Atur navigasi serta opsi penilaian jika tersedia.</li><li>Pratinjau dan uji seluruh interaksi.</li><li>Simpan proyek dan ekspor/bagikan sesuai kebutuhan.</li></ol><p class="small muted">Nama menu dapat berbeda antarversi. Ikuti label yang tersedia di aplikasi Anda.</p></article>
+      </div>
+      <div class="section-head" style="margin-top:24px"><div><h2>Contoh simulasi: pilih jenis interaksi</h2><p>Pilih tab untuk melihat rancangan sederhana yang dapat Anda tiru di Lumi.</p></div></div>
+      <div class="tabs" role="tablist"><button class="active" data-tab="tab-mc">Pilihan ganda</button><button data-tab="tab-dd">Drag and Drop</button><button data-tab="tab-ref">Refleksi</button></div>
+      <div class="lesson tab-panel active" id="tab-mc"><h3>📝 Pilihan ganda</h3><p><b>Contoh pertanyaan:</b> Langkah pertama yang baik saat memecahkan masalah adalah…</p><ol type="A"><li>Mencoba semua cara secara acak</li><li>Mengidentifikasi masalah dan tujuan</li><li>Langsung memilih alat paling mahal</li><li>Mengabaikan batasan waktu</li></ol><p><b>Kunci:</b> B. <b>Umpan balik:</b> Memahami masalah dan tujuan membantu menentukan data, batasan, dan strategi solusi yang tepat.</p></div>
+      <div class="lesson tab-panel" id="tab-dd"><h3>🧩 Drag and Drop / pengelompokan</h3><p><b>Tugas:</b> Kelompokkan aktivitas berikut ke kategori “Perencanaan”, “Pembuatan”, atau “Evaluasi”.</p><ul><li>Menentukan tujuan belajar → Perencanaan</li><li>Menyusun slide dan aktivitas → Pembuatan</li><li>Menguji tautan dan kunci jawaban → Evaluasi</li></ul><p class="muted small">Di Lumi, buat zona target untuk kategori dan objek yang bisa dipindahkan. Uji pada perangkat sentuh jika digunakan siswa.</p></div>
+      <div class="lesson tab-panel" id="tab-ref"><h3>💭 Refleksi peserta didik</h3><p>Minta peserta didik menjawab pertanyaan terbuka setelah menyelesaikan materi:</p><ul><li>Konsep apa yang paling saya pahami hari ini?</li><li>Bagian mana yang masih membingungkan?</li><li>Strategi apa yang akan saya gunakan saat menghadapi masalah serupa?</li></ul><p class="muted small">Refleksi terbuka perlu ditinjau guru jika Anda ingin menilai kualitas pemikiran, bukan hanya skor otomatis.</p></div>
+      <div class="callout warning" style="margin-top:15px"><strong>Perhatikan format keluaran</strong>File proyek yang dapat diedit, paket HTML mandiri, paket H5P, dan konten yang diunggah ke LMS bukan hal yang sama. Sebelum membuat materi, tentukan apakah hasil akan dibuka offline, diunggah ke LMS, atau dibagikan lewat tautan. Uji paket pada perangkat target.</div>
+    </section>
+
+    <section id="proyek">
+      <div class="section-head"><div><div class="kicker">06 / Praktik mandiri</div><h2>Proyek: buat MPI mini dalam satu topik</h2><p>Gunakan proyek ini sebagai latihan terarah. Contoh topik bisa diganti sesuai mata pelajaran dan kebutuhan kelas.</p></div></div>
+      <div class="grid2">
+        <div class="lesson"><h3>📌 Brief proyek</h3><div class="field"><label for="projectTitle">Judul MPI</label><input id="projectTitle" value="Misi Problem Solver"></div><div class="field"><label for="projectTopic">Topik</label><input id="projectTopic" value="Berpikir Komputasional"></div><div class="field"><label for="projectAudience">Sasaran</label><input id="projectAudience" value="Kelas VIII SMP"></div><div class="field"><label for="projectOutcome">Bukti keberhasilan</label><textarea id="projectOutcome" rows="2">Peserta didik dapat mengidentifikasi masalah, memilih strategi, dan menjelaskan alasan solusinya.</textarea></div><button class="btn soft" id="buildBrief">Buat ringkasan proyek</button><div class="code" id="briefOutput" style="margin-top:12px">Ringkasan proyek akan tampil di sini.</div></div>
+        <div class="lesson"><h3>☑️ Checklist pengerjaan</h3><div class="progress-label"><span id="progressText">0 dari 10 tugas selesai</span></div><div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div><div class="checklist" id="projectChecks">
+          <label class="checkitem"><input type="checkbox"><span>Tujuan pembelajaran dan indikator ditetapkan.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Storyboard 5–7 layar disusun.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Visual sampul dan 2 aset dibuat di Canva.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Draf materi diperiksa dan diverifikasi.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Minimal 3 pertanyaan beserta umpan balik disiapkan.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Konten dirakit di Lumi/H5P.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Instruksi dan navigasi diperiksa.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Konten diuji di laptop dan ponsel.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Hak cipta, privasi, dan aksesibilitas diperiksa.</span></label>
+          <label class="checkitem"><input type="checkbox"><span>Hasil dibagikan dan memperoleh masukan.</span></label>
+        </div></div>
+      </div>
+      <div class="section-head" style="margin-top:24px"><div><h2>Template storyboard</h2><p>Rencanakan sebelum mendesain. Isi contoh di bawah dapat diubah.</p></div></div>
+      <div class="card" style="overflow-x:auto"><table class="rubric"><thead><tr><th>Layar</th><th>Isi</th><th>Visual / media</th><th>Interaksi</th><th>Bukti belajar</th></tr></thead><tbody>
+      <tr><td>1. Pembuka</td><td>Judul, konteks, tujuan</td><td>Sampul Canva</td><td>Tombol mulai</td><td>Peserta didik memahami tujuan</td></tr>
+      <tr><td>2. Pemantik</td><td>Masalah nyata</td><td>Foto / ilustrasi</td><td>Pertanyaan prediksi</td><td>Pengetahuan awal</td></tr>
+      <tr><td>3. Materi</td><td>Konsep inti dan contoh</td><td>Infografik</td><td>Navigasi / reveal</td><td>Memahami konsep</td></tr>
+      <tr><td>4. Praktik</td><td>Langkah penyelesaian</td><td>Diagram alur</td><td>Drag and Drop / pilihan</td><td>Menerapkan strategi</td></tr>
+      <tr><td>5. Kuis</td><td>3–5 soal</td><td>Ikon sederhana</td><td>Jawaban dan umpan balik</td><td>Skor dan miskonsepsi</td></tr>
+      <tr><td>6. Penutup</td><td>Rangkuman dan refleksi</td><td>Kartu ringkasan</td><td>Pertanyaan refleksi</td><td>Rencana tindak lanjut</td></tr>
+      </tbody></table></div>
+    </section>
+
+    <section id="evaluasi">
+      <div class="section-head"><div><div class="kicker">07 / Evaluasi kualitas</div><h2>Uji MPI sebelum digunakan</h2><p>Gunakan rubrik berikut untuk menilai prototipe dan menentukan perbaikan prioritas.</p></div></div>
+      <div class="card" style="overflow-x:auto"><table class="rubric"><thead><tr><th>Aspek</th><th>1 — Perlu perbaikan</th><th>2 — Cukup</th><th>3 — Baik</th><th>4 — Sangat baik</th></tr></thead><tbody>
+      <tr><td><b>Tujuan & materi</b></td><td>Tujuan tidak jelas</td><td>Tujuan ada, hubungan materi lemah</td><td>Materi sesuai tujuan</td><td>Terukur, akurat, kontekstual</td></tr>
+      <tr><td><b>Desain visual</b></td><td>Sulit dibaca</td><td>Cukup terbaca, belum konsisten</td><td>Konsisten dan jelas</td><td>Hierarki kuat dan aksesibel</td></tr>
+      <tr><td><b>Interaktivitas</b></td><td>Hanya membaca</td><td>Ada klik tanpa tujuan jelas</td><td>Aktivitas mendukung belajar</td><td>Aktivitas + umpan balik bermakna</td></tr>
+      <tr><td><b>Asesmen</b></td><td>Soal ambigu / kunci salah</td><td>Soal ada, umpan balik terbatas</td><td>Soal sesuai tujuan</td><td>Umpan balik menjelaskan alasan</td></tr>
+      <tr><td><b>Teknis & akses</b></td><td>Sering gagal dibuka</td><td>Berjalan di perangkat tertentu</td><td>Berfungsi pada target utama</td><td>Diuji lintas perangkat dan aksesibel</td></tr>
+      </tbody></table><div class="field"><label for="score">Masukkan skor tiap aspek (1–4), pisahkan koma</label><input id="score" value="3,3,3,3,3"></div><button class="btn primary" id="calcScore">Hitung hasil</button><p id="scoreResult" aria-live="polite" class="muted small">Skor maksimal 20.</p></div>
+      <div class="grid2" style="margin-top:15px"><div class="callout"><strong>Uji teknis</strong>Periksa tautan, tombol, urutan layar, tampilan ponsel, audio, subtitle/transkrip, ukuran berkas, dan akses internet yang dibutuhkan.</div><div class="callout warning"><strong>Uji pedagogis</strong>Minta satu atau dua rekan menguji MPI tanpa bantuan Anda. Amati apakah instruksi jelas, aktivitas sesuai tujuan, dan umpan balik membantu.</div></div>
+    </section>
+
+    <section id="referensi">
+      <div class="section-head"><div><div class="kicker">08 / Etika & tindak lanjut</div><h2>Publikasi, privasi, dan referensi</h2><p>MPI yang baik tetap perlu menghormati hak peserta didik dan pembuat konten.</p></div></div>
+      <div class="grid2">
+        <div class="lesson"><h3>🔐 Checklist etika</h3><ul><li>Jangan masukkan nama lengkap, nilai, foto, atau data pribadi siswa ke layanan AI tanpa dasar dan izin yang sesuai.</li><li>Periksa fakta dan bias dari keluaran AI; jangan menyalin mentah-mentah.</li><li>Gunakan gambar, font, musik, dan video sesuai lisensi.</li><li>Berikan atribusi jika diperlukan dan catat sumber aset.</li><li>Sediakan teks alternatif atau deskripsi untuk visual penting.</li><li>Jelaskan tujuan pengumpulan respons siswa jika aktivitas merekam data.</li></ul></div>
+        <div class="lesson"><h3>🌐 Tautan rujukan resmi</h3><p><a href="https://www.canva.com/" target="_blank" rel="noopener">Canva — alat desain</a></p><p><a href="https://lumi.education/" target="_blank" rel="noopener">Lumi Education — aplikasi H5P</a></p><p><a href="https://h5p.org/documentation" target="_blank" rel="noopener">Dokumentasi H5P</a></p><p><a href="https://help.openai.com/" target="_blank" rel="noopener">OpenAI Help Center — bantuan penggunaan AI</a></p><p class="small muted">Fitur, antarmuka, ketentuan akun, dan format ekspor dapat berubah. Periksa dokumentasi terbaru sebelum pelatihan atau publikasi.</p></div>
+      </div>
+      <div class="callout" style="margin-top:15px"><strong>Rencana tindak lanjut</strong>Mulai dari satu tujuan pembelajaran dan satu aktivitas interaktif. Uji pada kelompok kecil, kumpulkan umpan balik, lalu revisi. MPI tidak harus rumit untuk menjadi efektif—yang utama adalah hubungan yang jelas antara tujuan, aktivitas, dan bukti belajar.</div>
+    </section>
+    <footer class="footer"><span>MPI Studio • Bahan ajar interaktif untuk pendidik</span><span>Dirancang untuk pembelajaran mandiri dan lokakarya guru</span></footer>
+  </div>
+</main>
+</div>
+<script>
+const navButtons=[...document.querySelectorAll('#nav button')];
+const sidebar=document.getElementById('sidebar');
+const crumb=document.getElementById('crumbCurrent');
+navButtons.forEach(btn=>btn.addEventListener('click',()=>{document.getElementById(btn.dataset.target).scrollIntoView({behavior:'smooth'});navButtons.forEach(b=>b.classList.toggle('active',b===btn));crumb.textContent=btn.textContent.trim().replace(/^\\d+\\s*/, '');sidebar.classList.remove('open')}));
+document.getElementById('menuToggle').addEventListener('click',()=>sidebar.classList.toggle('open'));
+const sections=[...document.querySelectorAll('main section[id]')];
+window.addEventListener('scroll',()=>{let current=sections[0];for(const s of sections){if(s.getBoundingClientRect().top<150)current=s}navButtons.forEach(b=>b.classList.toggle('active',b.dataset.target===current.id));crumb.textContent=(navButtons.find(b=>b.dataset.target===current.id)||{}).textContent?.trim().replace(/^\\d+\\s*/,'')||'Beranda'},{passive:true});
+document.querySelectorAll('.checklist input').forEach(input=>input.addEventListener('change',()=>{input.closest('.checkitem').classList.toggle('done',input.checked);updateProgress()}));
+function updateProgress(){const items=[...document.querySelectorAll('#projectChecks input')];const done=items.filter(x=>x.checked).length;document.getElementById('progressText').textContent=`${done} dari ${items.length} tugas selesai`;document.getElementById('progressBar').style.width=`${done/items.length*100}%`}
+document.querySelectorAll('[data-tab]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.id===btn.dataset.tab))}));
+document.getElementById('makePrompt').addEventListener('click',()=>{const subject=document.getElementById('subject').value.trim();const grade=document.getElementById('grade').value.trim();const goal=document.getElementById('goal').value.trim();const duration=document.getElementById('duration').value;document.getElementById('promptOutput').value=`Bertindaklah sebagai ahli desain pembelajaran, guru berpengalaman, dan pengembang Media Pembelajaran Interaktif (MPI).\\n\\nKonteks:\\n- Mata pelajaran/topik: ${subject}\\n- Sasaran: ${grade}\\n- Tujuan pembelajaran: ${goal}\\n- Durasi: ${duration}\\n\\nTugas:\\n1. Buat storyboard MPI 5–7 layar dengan urutan pembuka, pemantik, materi, contoh, latihan, kuis, dan refleksi.\\n2. Untuk setiap layar, tuliskan judul, teks ringkas, visual yang disarankan untuk dibuat di Canva, interaksi yang cocok untuk Lumi/H5P, dan bukti belajar.\\n3. Buat 3 soal beserta kunci, alasan jawaban, dan umpan balik yang ramah.\\n4. Berikan saran diferensiasi, aksesibilitas, serta pemeriksaan fakta.\\n5. Tandai informasi yang perlu diverifikasi dengan sumber tepercaya.\\n\\nGunakan bahasa Indonesia yang jelas, sesuai usia peserta didik, dan jangan mengarang sumber.`});
+document.getElementById('copyPrompt').addEventListener('click',async()=>{const out=document.getElementById('promptOutput');try{await navigator.clipboard.writeText(out.value);document.getElementById('copyStatus').textContent='Prompt berhasil disalin.'}catch(e){out.select();document.execCommand('copy');document.getElementById('copyStatus').textContent='Prompt dipilih/disalin; jika gagal, gunakan Ctrl+C.'}});
+document.getElementById('buildBrief').addEventListener('click',()=>{const v=id=>document.getElementById(id).value.trim();document.getElementById('briefOutput').textContent=`RINGKASAN PROYEK MPI\\nJudul: ${v('projectTitle')}\\nTopik: ${v('projectTopic')}\\nSasaran: ${v('projectAudience')}\\nBukti keberhasilan: ${v('projectOutcome')}\\n\\nTahapan: storyboard → aset Canva → draf AI yang diverifikasi → interaksi Lumi/H5P → uji coba → revisi.`});
+document.getElementById('calcScore').addEventListener('click',()=>{const raw=document.getElementById('score').value.split(',').map(s=>Number(s.trim()));const result=document.getElementById('scoreResult');if(raw.length!==5||raw.some(n=>!Number.isInteger(n)||n<1||n>4)){result.textContent='Masukkan tepat 5 skor bilangan bulat dari 1 sampai 4, misalnya 3,3,4,2,3.';result.className='feedback bad';return}const sum=raw.reduce((a,b)=>a+b,0);let level=sum>=18?'Sangat baik':sum>=14?'Baik':sum>=10?'Cukup': 'Perlu perbaikan';result.textContent=`Skor: ${sum}/20 (${Math.round(sum/20*100)}%). Kategori: ${level}. Gunakan aspek dengan skor terendah sebagai prioritas revisi.`;result.className='feedback '+(sum>=14?'good':'bad')});
+</script>
+</body>
+</html>
